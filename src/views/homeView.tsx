@@ -1,11 +1,8 @@
-import React, { useState } from 'react';
-import { View, Text } from 'react-native';
+import React from 'react';
 
 import MyTabs from '../navigators/NavBar';
 
 export default function Home() {
-    
-
     return (
         <MyTabs />
     );

@@ -1,11 +1,18 @@
 import React from 'react';
 import { View, Text, Pressable, StyleSheet } from 'react-native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { StackParamList } from '../navigators/NavBar';
+
 import appFirebase from '../services/firebase';
 import { getAuth } from 'firebase/auth';
 
 const auth = getAuth(appFirebase);
 
-export default function Vistas({ navigation }) {
+type Props = {
+    navigation: NativeStackNavigationProp<StackParamList>;
+}
+
+export default function Vistas({ navigation } : Props) {
 
     const userID = auth.currentUser;
 
@@ -13,7 +20,7 @@ export default function Vistas({ navigation }) {
         <View style={styles.container}>
             <View style={styles.userContainer}>
                 <Text style={styles.text}>
-                    {userID.email}
+                    {userID ? userID.email : "No hay ningún usuario autenticado"}
                 </Text>
             </View>
             <View style={styles.subContainer}>

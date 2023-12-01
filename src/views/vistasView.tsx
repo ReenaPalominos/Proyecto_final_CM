@@ -1,14 +1,19 @@
 import React from 'react';
 import { View, Text, Pressable, StyleSheet } from 'react-native';
+import appFirebase from '../services/firebase';
+import { getAuth } from 'firebase/auth';
 
-
+const auth = getAuth(appFirebase);
 
 export default function Vistas({ navigation }) {
+
+    const userID = auth.currentUser;
+
     return (
         <View style={styles.container}>
             <View style={styles.userContainer}>
                 <Text style={styles.text}>
-                    Usuario
+                    {userID.email}
                 </Text>
             </View>
             <View style={styles.subContainer}>

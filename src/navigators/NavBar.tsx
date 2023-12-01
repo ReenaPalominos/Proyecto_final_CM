@@ -15,6 +15,15 @@ import CreateUser from '../views/createView';
 const Tab = createBottomTabNavigator()
 const Stack = createNativeStackNavigator()
 
+export type StackParamList = {
+    Login: undefined;
+    Create: undefined;
+    Vistas: undefined;
+    Denuncias: undefined;
+    Eventos: undefined;
+    Usuario: undefined;
+};
+
 function LoginUser() {
     return (
         <Tab.Navigator>

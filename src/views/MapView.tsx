@@ -4,12 +4,12 @@ import { MapComponent } from "../components/MapComponent";
 
 export default function MapView(){
     return(
-        <View>
-            <Text>MAPA</Text>
+        
+            
         <View style={style.container}>
             <MapComponent/>
         </View>
-         </View>
+        
     )
 }
 

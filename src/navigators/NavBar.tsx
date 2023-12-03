@@ -12,7 +12,7 @@ import Usuario from '../views/usuarioView';
 import Login from '../views/loginView';
 import CreateUser from '../views/createView';
 
-import DetallesDenuncia from '../views/DetallesDenuncia';
+import DetallesDenuncia from '../views/detallesDenunciasView';
 
 const Tab = createBottomTabNavigator()
 const Stack = createNativeStackNavigator()

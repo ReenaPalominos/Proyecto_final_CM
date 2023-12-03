@@ -12,6 +12,8 @@ import Usuario from '../views/usuarioView';
 import Login from '../views/loginView';
 import CreateUser from '../views/createView';
 
+import DetallesDenuncia from '../views/DetallesDenuncia';
+
 const Tab = createBottomTabNavigator()
 const Stack = createNativeStackNavigator()
 
@@ -22,6 +24,7 @@ export type StackParamList = {
     Denuncias: undefined;
     Eventos: undefined;
     Usuario: undefined;
+    DetallesDenuncia: undefined;
 };
 
 function LoginUser() {
@@ -54,6 +57,7 @@ function MyTabs() {
                 <Stack.Screen name="Denuncias" component={Denuncias} />
                 <Stack.Screen name="Eventos" component={Eventos} />
                 <Stack.Screen name="Usuario" component={Usuario} />
+                <Stack.Screen name="DetallesDenuncia" component={DetallesDenuncia} />
             </Stack.Navigator>
         </NavigationContainer>
     );

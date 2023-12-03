@@ -1,3 +1,5 @@
+
+
 import React, { useState } from 'react';
 import { StyleSheet, Image, View, Text, Button, TextInput, Alert, Pressable, SafeAreaView } from 'react-native';
 import { BlurView } from "expo-blur";
@@ -5,8 +7,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { StackParamList } from '../navigators/NavBar';
 
 import appFirebase from '../services/firebase';
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 const auth = getAuth(appFirebase);
 
@@ -14,37 +15,36 @@ type Props = {
     navigation: NativeStackNavigationProp<StackParamList>;
 }
 
-export default function Login ({ navigation } : Props){
+export default function CreateUser({ navigation } : Props) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [isButtonPressed, setIsButtonPressed] = useState(false);
 
-    const loginApp = async () => { 
+    const registerApp = async () => { 
         setIsButtonPressed(true);
         try {
-            await signInWithEmailAndPassword(auth, email, password);
-            Alert.alert('Iniciando Sesión','Accediendo...');
-            navigation.navigate('Vistas');
+            await createUserWithEmailAndPassword(auth, email, password);
+            Alert.alert('Registrando','Registrando usuario...');
+            navigation.navigate('Login');
         } catch (error) {
             console.log(error);
-            Alert.alert('Error','Usuario o contraseña incorrectos');
+            Alert.alert('Error','No se pudo registrar');
         }
         setIsButtonPressed(false);
     };
 
-    
     return (
         <SafeAreaView style={styles.container} >
-            <BlurView intensity={70} tint="dark" style={styles.blurContainer}>
+            <BlurView intensity={70} tint="light" style={styles.blurContainer}>
                 <Image 
                     style={styles.image}
                     source={require("../../assets/icons/adaptive-icon.png")}
                 />
-                <Text style={styles.title}>Inicia Sesión</Text>
-                <TextInput style={styles.textInputContainer} placeholder="Inrgesa tu email" onChangeText={(text) => setEmail(text)} />
-                <TextInput style={styles.textInputContainer} placeholder="Ingresa tu contraseña" onChangeText={(text) => setPassword(text)} secureTextEntry />
-                <Pressable style={isButtonPressed ? styles.pressedButton : styles.button} onPress={loginApp}>
-                    <Text style={isButtonPressed ? styles.pressedText : styles.text}>Sign In</Text>
+                <Text style={styles.title}>Crea tu Cuenta</Text>
+                <TextInput style={styles.textInputContainer} placeholder="Ingresa tu email" onChangeText={(text) => setEmail(text)} />
+                <TextInput style={styles.textInputContainer} placeholder="Crea una contraseña..." onChangeText={(text) => setPassword(text)} secureTextEntry />
+                <Pressable style={isButtonPressed ? styles.pressedButton : styles.button} onPress={registerApp}>
+                    <Text style={isButtonPressed ? styles.pressedText : styles.text}>Crear Usuario</Text>
                 </Pressable>
             </BlurView>
         </SafeAreaView>
@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
     title: {
         marginBottom: 30,
         fontSize: 26,
-        color: 'white',
+        color: 'grey',
         fontWeight: 'bold',
     },
     text: {

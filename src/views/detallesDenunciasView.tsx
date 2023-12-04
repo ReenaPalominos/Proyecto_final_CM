@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { MapComponent } from '../components/MapComponent';
 
 export default function Denuncias() {
   return (
@@ -14,7 +15,7 @@ export default function Denuncias() {
       <Text style={styles.descriptionText}>
         Descripción de la denuncia aquí...
       </Text>
-      {/* Agregar componente de mapa */}
+      <MapComponent/>
       <Text style={styles.footerText}>
         Fecha: 01/12/2023 | Autor: Usuario123
       </Text>

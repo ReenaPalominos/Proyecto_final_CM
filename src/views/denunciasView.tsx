@@ -11,6 +11,10 @@ export default function Denuncias() {
     navigation.navigate('DetallesDenuncia');
   };
 
+  const handleAddDenuncia = () => {
+    navigation.navigate('AddDenuncia');
+  }
+
   return (
     <View style={styles.container}>
       <ScrollView style={styles.scrollView}>
@@ -25,7 +29,7 @@ export default function Denuncias() {
           </TouchableOpacity>
         ))}
       </ScrollView>
-      <TouchableOpacity style={styles.addButton}>
+      <TouchableOpacity style={styles.addButton} onPress={handleAddDenuncia}>
         <Text style={styles.addButtonText}>+</Text>
       </TouchableOpacity>
     </View>

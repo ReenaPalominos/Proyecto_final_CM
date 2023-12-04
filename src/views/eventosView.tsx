@@ -10,6 +10,10 @@ export default function Eventos() {
     const handleEventosPress = () => {
       navigation.navigate('DetallesEventos');
     };
+
+    const handleAddEvento = () => {
+      navigation.navigate('AddEvento');
+    }
   
 
     return (
@@ -26,7 +30,7 @@ export default function Eventos() {
           </TouchableOpacity>
         ))}
       </ScrollView>
-      <TouchableOpacity style={styles.addButton}>
+      <TouchableOpacity style={styles.addButton} onPress={handleAddEvento}>
         <Text style={styles.addButtonText}>+</Text>
       </TouchableOpacity>
     </View>

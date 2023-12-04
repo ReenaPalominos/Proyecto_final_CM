@@ -13,6 +13,7 @@ import Login from '../views/loginView';
 import CreateUser from '../views/createUserView';
 
 import DetallesDenuncia from '../views/detallesDenunciasView';
+import DetallesEventos from '../views/detallesEventoView';
 
 const Tab = createBottomTabNavigator()
 const Stack = createNativeStackNavigator()
@@ -58,6 +59,7 @@ function MyTabs() {
                 <Stack.Screen name="Eventos" component={Eventos} />
                 <Stack.Screen name="Usuario" component={Usuario} />
                 <Stack.Screen name="DetallesDenuncia" component={DetallesDenuncia} />
+                <Stack.Screen name="DetallesEventos" component={DetallesEventos} />
             </Stack.Navigator>
         </NavigationContainer>
     );

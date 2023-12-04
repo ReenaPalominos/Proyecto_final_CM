@@ -10,7 +10,7 @@ import Denuncias from '../views/denunciasView';
 import Eventos from '../views/eventosView';
 import Usuario from '../views/usuarioView';
 import Login from '../views/loginView';
-import CreateUser from '../views/createView';
+import CreateUser from '../views/createUserView';
 
 import DetallesDenuncia from '../views/detallesDenunciasView';
 

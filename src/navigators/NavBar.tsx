@@ -12,6 +12,8 @@ import Usuario from '../views/usuarioView';
 import Login from '../views/loginView';
 import CreateUser from '../views/createUserView';
 
+import Mapa from '../views/MapView';
+
 import DetallesDenuncia from '../views/detallesDenunciasView';
 import DetallesEventos from '../views/detallesEventoView';
 
@@ -26,6 +28,8 @@ export type StackParamList = {
     Eventos: undefined;
     Usuario: undefined;
     DetallesDenuncia: undefined;
+    DetallesEventos: undefined;
+    Mapa: undefined;
 };
 
 function LoginUser() {
@@ -60,6 +64,7 @@ function MyTabs() {
                 <Stack.Screen name="Usuario" component={Usuario} />
                 <Stack.Screen name="DetallesDenuncia" component={DetallesDenuncia} />
                 <Stack.Screen name="DetallesEventos" component={DetallesEventos} />
+                <Stack.Screen name="Mapa" component={Mapa} />
             </Stack.Navigator>
         </NavigationContainer>
     );

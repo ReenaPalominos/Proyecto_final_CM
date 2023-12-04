@@ -47,6 +47,14 @@ export default function Vistas({ navigation } : Props) {
                 </Pressable>
                 <Pressable 
                 style={styles.button} 
+                onPress={() => navigation.navigate('Mapa')} >
+                    <Text 
+                        style={styles.text} >
+                        Mapa
+                    </Text>
+                </Pressable>
+                <Pressable 
+                style={styles.button} 
                 onPress={() => navigation.navigate('Usuario')} >
                     <Text 
                         style={styles.text} >

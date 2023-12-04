@@ -16,6 +16,10 @@ export default function Vistas({ navigation } : Props) {
 
     const userID = auth.currentUser;
 
+    const navigateToAboutUs = () => {
+        navigation.navigate('AboutUs');
+    };
+
     return (
         <View style={styles.container}>
             <View style={styles.userContainer}>
@@ -62,6 +66,12 @@ export default function Vistas({ navigation } : Props) {
                     </Text>
                 </Pressable>
             </View>
+            <Pressable
+                style={styles.circularButton}
+                onPress={navigateToAboutUs}
+            >
+                <Text style={styles.text}>?</Text>
+            </Pressable>
         </View>
         );
     }
@@ -112,5 +122,16 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 20,
         fontWeight: 'bold',
-    }
+    },
+    circularButton: {
+        position: 'absolute',
+        bottom: 20,
+        right: 20,
+        width: 30,
+        height: 30,
+        borderRadius: 25,
+        backgroundColor: '#44E8FF',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
 });

@@ -41,7 +41,7 @@ export default function Login ({ navigation } : Props){
                     source={require("../../assets/icons/adaptive-icon.png")}
                 />
                 <Text style={styles.title}>Inicia Sesión</Text>
-                <TextInput style={styles.textInputContainer} placeholder="Inrgesa tu email" onChangeText={(text) => setEmail(text)} />
+                <TextInput style={styles.textInputContainer} placeholder="Ingresa tu email" onChangeText={(text) => setEmail(text)} />
                 <TextInput style={styles.textInputContainer} placeholder="Ingresa tu contraseña" onChangeText={(text) => setPassword(text)} secureTextEntry />
                 <Pressable style={isButtonPressed ? styles.pressedButton : styles.button} onPress={loginApp}>
                     <Text style={isButtonPressed ? styles.pressedText : styles.text}>Sign In</Text>

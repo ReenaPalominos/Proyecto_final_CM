@@ -20,6 +20,8 @@ import AddDenuncia from '../views/addDenunciaView';
 import DetallesEventos from '../views/detallesEventoView';
 import AddEvento from '../views/addEventoView';
 
+import AboutUs from '../views/aboutUsView';
+
 const Tab = createBottomTabNavigator()
 const Stack = createNativeStackNavigator()
 
@@ -35,6 +37,7 @@ export type StackParamList = {
     DetallesEventos: undefined;
     AddEvento: undefined;
     Mapa: undefined;
+    AboutUs: undefined;
 };
 
 function LoginUser() {
@@ -72,6 +75,7 @@ function MyTabs() {
                 <Stack.Screen name="Mapa" component={Mapa} />
                 <Stack.Screen name="AddDenuncia" component={AddDenuncia} />
                 <Stack.Screen name="AddEvento" component={AddEvento} />
+                <Stack.Screen name="AboutUs" component={AboutUs} />
             </Stack.Navigator>
         </NavigationContainer>
     );

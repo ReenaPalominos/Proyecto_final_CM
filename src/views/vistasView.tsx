@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Pressable, StyleSheet } from 'react-native';
+import { View, Image, Text, Pressable, StyleSheet } from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { StackParamList } from '../navigators/NavBar';
 
@@ -19,6 +19,10 @@ export default function Vistas({ navigation } : Props) {
     return (
         <View style={styles.container}>
             <View style={styles.userContainer}>
+                <Image
+                    source={require('../../assets/profilepic.png')}
+                    style={styles.userImage}
+                />
                 <Text style={styles.text}>
                     {userID ? userID.email : "No hay ningún usuario autenticado"}
                 </Text>
@@ -60,6 +64,11 @@ const styles = StyleSheet.create({
         backgroundColor: '#55EBFF',
         alignItems: 'center',
         justifyContent: 'center',
+    },
+    userImage:{
+        width: 100,
+        height: 100,
+        borderRadius: 100,
     },
     userContainer: {
         width: 400,

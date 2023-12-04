@@ -8,7 +8,7 @@ export const MapComponent = () => {
 
     return (
         <View style={styles.container}>
-            <MapView style={styles.map} provider={'google'} showsUserLocation showsMyLocationButton initialRegion={{latitude: -33.687608, longitude: -71.216249, latitudeDelta: 0.6, longitudeDelta: 0.6}}>
+            <MapView style={styles.map} provider={'google'} showsUserLocation showsMyLocationButton initialRegion={{latitude: -33.466008, longitude: -70.598194, latitudeDelta: 0.01, longitudeDelta: 0.01}}>
                 {markers.map((marker, index) => (
                     <Marker key={index} coordinate={{ latitude: marker.latitude, longitude: marker.longitude }}></Marker>
                 ))}

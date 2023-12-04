@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import MapView, {Marker} from "react-native-maps";
 import { StyleSheet,View } from "react-native";
 
-export const MapComponent=(Marker:any) => {
+export const MapComponent=() => {
     
     const [markers, setMarkers] = useState([{ latitude: -33.4620635, longitude: -70.6131049 }])
 

@@ -21,6 +21,7 @@ export const LoginComponent = ({ navigation }: Props) => {
         
         const success = await logIn(email, password);
         if (success) {
+            // CAMBIAR POR LOADING!
             Alert.alert('Iniciando Sesión','Accediendo...');
             navigation.navigate('Vistas');
         } else {

@@ -1,6 +1,8 @@
 import { initializeApp } from "firebase/app";
 import { getStorage } from "firebase/storage";
 import { getFirestore } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
+import { getDatabase } from "firebase/database";
 
 const firebaseConfig = {
     apiKey: "AIzaSyBip5-PR3unavAudwB7QQkmNnR0ZN33iXs",
@@ -8,13 +10,16 @@ const firebaseConfig = {
     projectId: "proyecto-final-cm",
     storageBucket: "proyecto-final-cm.appspot.com",
     messagingSenderId: "413701259593",
-    appId: "1:413701259593:web:6cc87ee29a07c3bce8da98"
+    appId: "1:413701259593:web:6cc87ee29a07c3bce8da98",
+    // databaseURL: "",
 };
 
 // Initialize Firebase
 const appFirebase = initializeApp(firebaseConfig);
 
-export const storage = getStorage(appFirebase);
-export const db = getFirestore(appFirebase);
+const storage = getStorage(appFirebase);
+const db = getFirestore(appFirebase);
+const auth = getAuth(appFirebase);
+const database = getDatabase(appFirebase);
 
-export default appFirebase;
+export { storage, db, auth, database };

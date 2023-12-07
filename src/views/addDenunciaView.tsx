@@ -17,7 +17,7 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 
 /* FireBase */
-import { db, storage } from "../services/firebase";
+import { db, storage } from "../services/firebaseConfig";
 import { ref, uploadBytesResumable, getStorage, getDownloadURL } from 'firebase/storage';
 
 /* Para la subida de imágenes. */

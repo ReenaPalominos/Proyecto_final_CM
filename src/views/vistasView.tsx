@@ -3,7 +3,7 @@ import { View, Image, Text, Pressable, StyleSheet } from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { StackParamList } from '../navigators/NavBar';
 
-import appFirebase from '../services/firebase';
+import appFirebase from '../services/firebaseConfig';
 import { getAuth } from 'firebase/auth';
 
 const auth = getAuth(appFirebase);

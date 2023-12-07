@@ -6,7 +6,7 @@ import { BlurView } from "expo-blur";
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { StackParamList } from '../navigators/NavBar';
 
-import appFirebase from '../services/firebase';
+import appFirebase from '../services/firebaseConfig';
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 const auth = getAuth(appFirebase);

@@ -47,12 +47,12 @@ export const CamComponent= ()=>{
     const handlerZoom = (type:ZoomTypes) =>{
         if(type ==='add'){
             if(Zoom <= 0.998){
-                setZoom(Zoom + 0.002)
+                setZoom(Zoom + 0.01)
             }
         }
         if(type ==='sub'){
-            if(Zoom >= 0.998){
-                setZoom(Zoom - 0.002)
+            if(Zoom >= 0.002){
+                setZoom(Zoom - 0.01)
             }
         }
     }

@@ -2,6 +2,7 @@ import { Camera, CameraType } from "expo-camera"
 import React from "react";
 import { useEffect, useRef, useState } from "react"
 import { View,StyleSheet, Button, TouchableOpacity, Text, Image} from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
 type ZoomTypes = 'add'| 'sub';
 
@@ -79,7 +80,10 @@ export const CamComponent= ()=>{
                 <Image source={{ uri: "data:image/jpg;base64," + Photo.base64 }} style={styles.preview} />
                 <View style={styles.buttonContainerImage}>
                     <TouchableOpacity style={styles.button} onPress={DiscardPhoto}>
-                        <Text style={styles.text}>Discard Photo</Text>
+                        <Ionicons name="trash" size={24} color="white" />
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.button} >
+                        <Ionicons name="save" size={24} color="white" />
                     </TouchableOpacity>
                 </View>
             </View>
@@ -91,16 +95,16 @@ export const CamComponent= ()=>{
             <Camera style={styles.camera} type={Type} ref={cameraRef} zoom={Zoom} faceDetectorSettings={faceOptions} >
                 <View style={styles.buttonContainer}>
                     <TouchableOpacity style={styles.button} onPress={ToggleCameraType}>
-                        <Text style={styles.text}>Flip Camera</Text>
+                        <Ionicons name="repeat-sharp" size={24} color="white" />
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.button} onPress={takePicture}>
-                        <Text style={styles.text}>Take Picture</Text>
+                        <Ionicons name="camera" size={24} color="white" />
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.button} onPress={() => handlerZoom('add')}>
-                        <Text style={styles.text}>+</Text>
+                        <Ionicons name="add-circle-outline" size={24} color="white" />
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.button} onPress={() => handlerZoom('sub')}>
-                        <Text style={styles.text}>-</Text>
+                        <Ionicons name="add" size={24} color="white" />
                     </TouchableOpacity>
                 </View>
             </Camera>

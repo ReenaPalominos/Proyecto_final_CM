@@ -2,25 +2,25 @@ import React from 'react';
 import { View, ScrollView, Image, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-export default function Eventos() {
-    const navigation = useNavigation();
 
-    const eventos = Array.from({ length: 10 }, (_, index) => index); // Crear 10 denuncias
-  
-    const handleEventosPress = () => {
-      navigation.navigate('DetallesEventos');
-    };
 
-    const handleAddEvento = () => {
-      navigation.navigate('AddEvento');
-    }
-  
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { StackParamList } from '../navigators/NavBar'; 
+
+
+type Props = {
+  navigation: NativeStackNavigationProp<StackParamList>;
+}
+
+export default function Eventos({ navigation } : Props) {
+
+    const eventos = Array.from({ length: 10 }, (_, index) => index); // Crear 10 eventos 
 
     return (
         <View style={styles.container}>
       <ScrollView style={styles.scrollView}>
         {eventos.map((item, index) => (
-          <TouchableOpacity key={index} style={styles.eventosContainer} onPress={handleEventosPress}>
+          <TouchableOpacity key={index} style={styles.eventosContainer} onPress={() => navigation.navigate('DetallesEventos')}>
             <Image
               source={require('../../assets/eventos.png')}
               style={styles.image}
@@ -30,7 +30,7 @@ export default function Eventos() {
           </TouchableOpacity>
         ))}
       </ScrollView>
-      <TouchableOpacity style={styles.addButton} onPress={handleAddEvento}>
+      <TouchableOpacity style={styles.addButton} onPress={() => navigation.navigate('AddEvento')}>
         <Text style={styles.addButtonText}>+</Text>
       </TouchableOpacity>
     </View>

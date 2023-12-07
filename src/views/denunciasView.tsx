@@ -2,24 +2,22 @@ import React from 'react';
 import { View, ScrollView, Image, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-export default function Denuncias() {
-  const navigation = useNavigation();
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { StackParamList } from '../navigators/NavBar'; 
 
+
+type Props = {
+  navigation: NativeStackNavigationProp<StackParamList>;
+}
+
+export default function Denuncias({ navigation } : Props) {
   const denuncias = Array.from({ length: 10 }, (_, index) => index); // Crear 10 denuncias
-
-  const handleDenunciaPress = () => {
-    navigation.navigate('DetallesDenuncia');
-  };
-
-  const handleAddDenuncia = () => {
-    navigation.navigate('AddDenuncia');
-  }
 
   return (
     <View style={styles.container}>
       <ScrollView style={styles.scrollView}>
         {denuncias.map((item, index) => (
-          <TouchableOpacity key={index} style={styles.denunciaContainer} onPress={handleDenunciaPress}>
+          <TouchableOpacity key={index} style={styles.denunciaContainer} onPress={() => navigation.navigate('DetallesDenuncia')}>
             <Image
               source={require('../../assets/calle.jpg')}
               style={styles.image}
@@ -29,7 +27,7 @@ export default function Denuncias() {
           </TouchableOpacity>
         ))}
       </ScrollView>
-      <TouchableOpacity style={styles.addButton} onPress={handleAddDenuncia}>
+      <TouchableOpacity style={styles.addButton} onPress={() => navigation.navigate('AddDenuncia')}>
         <Text style={styles.addButtonText}>+</Text>
       </TouchableOpacity>
     </View>

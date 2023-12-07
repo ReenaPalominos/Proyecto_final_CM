@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, View, Text } from "react-native";
 import { CamComponent} from "../components/CamComponent";
 
-export default function MapView(){
+export default function TestCam(){
     return(
         
             

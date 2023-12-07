@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { LoginComponent } from '../components/loginComponent';
 
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -10,9 +10,20 @@ type Props = {
 
 export default function Login ({ navigation }: Props){
     return (
-        <View>
+        <View style={styles.container}>
             <LoginComponent navigation={navigation} />
         </View>
     );
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+
+        backgroundColor: '#55EBFF',
+
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+});
 

@@ -1,8 +1,9 @@
-import { Camera, CameraType } from "expo-camera"
+import { Camera, CameraType, FlashMode } from "expo-camera"
 import React from "react";
 import { useEffect, useRef, useState } from "react"
 import { View,StyleSheet, Button, TouchableOpacity, Text, Image} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import {AntDesign} from "@expo/vector-icons";
 
 type ZoomTypes = 'add'| 'sub';
 
@@ -20,6 +21,7 @@ export const CamComponent= ()=>{
     const [Photo, setPhoto]=useState<any>(undefined);
     const [HasCameraPermission, setHasCameraPermission]= useState(false);
     const [Zoom, setZoom]= useState(0);
+    const [Flash, setFlash]=useState(FlashMode.off);
     
     const takePicture = async ()=>{
         const options = {
@@ -34,6 +36,10 @@ export const CamComponent= ()=>{
     const ToggleCameraType=()=>{
         setType(current=>(current===CameraType.back ? CameraType.front : CameraType.back));
     }
+
+    const ToggleFlash=()=>{
+        setFlash(current=>(current===FlashMode.off ? FlashMode.torch : FlashMode.off))
+    }
     
     const getPermission = async()=>{
         const CameraPermission = await Camera.requestCameraPermissionsAsync();
@@ -42,6 +48,11 @@ export const CamComponent= ()=>{
     }
 
     const DiscardPhoto=() =>{
+        setPhoto(undefined);
+    }
+
+    const UpLoaPhoto=() =>{
+
         setPhoto(undefined);
     }
 
@@ -81,9 +92,11 @@ export const CamComponent= ()=>{
                 <View style={styles.buttonContainerImage}>
                     <TouchableOpacity style={styles.button} onPress={DiscardPhoto}>
                         <Ionicons name="trash" size={24} color="white" />
+                        <Text style={styles.text}>Borrar</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.button} >
+                    <TouchableOpacity style={styles.button} onPress={UpLoaPhoto}>
                         <Ionicons name="save" size={24} color="white" />
+                        <Text style={styles.text}>Guardar</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -92,19 +105,23 @@ export const CamComponent= ()=>{
 
     return (
         <View style={styles.container}>
-            <Camera style={styles.camera} type={Type} ref={cameraRef} zoom={Zoom} faceDetectorSettings={faceOptions} >
+            <Camera style={styles.camera} type={Type} flashMode={Flash} ref={cameraRef} zoom={Zoom} faceDetectorSettings={faceOptions}  >
                 <View style={styles.buttonContainer}>
-                    <TouchableOpacity style={styles.button} onPress={ToggleCameraType}>
-                        <Ionicons name="repeat-sharp" size={24} color="white" />
-                    </TouchableOpacity>
+                    
                     <TouchableOpacity style={styles.button} onPress={takePicture}>
                         <Ionicons name="camera" size={24} color="white" />
                     </TouchableOpacity>
+                    <TouchableOpacity style={styles.button} onPress={ToggleCameraType}>
+                        <Ionicons name="repeat-sharp" size={24} color="white" />
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.button} onPress={ToggleFlash}>
+                        <Ionicons name="flash" size={24} color="white" />
+                    </TouchableOpacity>
                     <TouchableOpacity style={styles.button} onPress={() => handlerZoom('add')}>
-                        <Ionicons name="add-circle-outline" size={24} color="white" />
+                        <AntDesign name="pluscircleo" size={24} color="white" />
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.button} onPress={() => handlerZoom('sub')}>
-                        <Ionicons name="add" size={24} color="white" />
+                        <AntDesign name="minuscircleo" size={24} color="white" />
                     </TouchableOpacity>
                 </View>
             </Camera>
@@ -132,7 +149,7 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         backgroundColor: '#000',
-        margin: 64,
+        margin: 0,
     },
     button: {
         flex: 1,
@@ -146,7 +163,7 @@ const styles = StyleSheet.create({
     },
     preview: {
         alignSelf: 'stretch',
-        height: '75%'
+        height: '90%'
     }, 
     textHelper:{
         color: '#fff',

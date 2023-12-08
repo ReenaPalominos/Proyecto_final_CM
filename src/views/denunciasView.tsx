@@ -5,26 +5,33 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { StackParamList } from '../navigators/NavBar'; 
 
+import DenunciaItem from '../components/DenunciaItem';
 
 type Props = {
   navigation: NativeStackNavigationProp<StackParamList>;
 }
 
-export default function Denuncias({ navigation } : Props) {
-  const denuncias = Array.from({ length: 10 }, (_, index) => index); // Crear 10 denuncias
+export default function Denuncias({ navigation }: Props) {
+  const denuncias = Array.from({ length: 10 }, (_, index) => ({
+    id: index,
+    text: `Denuncia ${index + 1}`,
+    description: `Descripción de la denuncia ${index + 1}`,
+    date: '01/01/2023',
+    imageSource: require('../../assets/calle.jpg'), // Fuente de la imagen para cada denuncia
+  }));
 
   return (
     <View style={styles.container}>
       <ScrollView style={styles.scrollView}>
-        {denuncias.map((item, index) => (
-          <TouchableOpacity key={index} style={styles.denunciaContainer} onPress={() => navigation.navigate('DetallesDenuncia')}>
-            <Image
-              source={require('../../assets/calle.jpg')}
-              style={styles.image}
-              resizeMode="cover"
-            />
-            <Text style={styles.dateText}>Fecha: 01/12/2023</Text>
-          </TouchableOpacity>
+        {denuncias.map((denuncia) => (
+          <DenunciaItem
+            key={denuncia.id}
+            onPress={() => navigation.navigate('DetallesDenuncia')}
+            text={denuncia.text}
+            description={denuncia.description}
+            date={denuncia.date}
+            imageSource={denuncia.imageSource}
+          />
         ))}
       </ScrollView>
       <TouchableOpacity style={styles.addButton} onPress={() => navigation.navigate('AddDenuncia')}>
@@ -33,6 +40,7 @@ export default function Denuncias({ navigation } : Props) {
     </View>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,

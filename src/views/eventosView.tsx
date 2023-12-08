@@ -2,11 +2,10 @@ import React from 'react';
 import { View, ScrollView, Image, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-
-
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { StackParamList } from '../navigators/NavBar'; 
 
+import EventoItem from '../components/EventoItem';
 
 type Props = {
   navigation: NativeStackNavigationProp<StackParamList>;
@@ -14,20 +13,26 @@ type Props = {
 
 export default function Eventos({ navigation } : Props) {
 
-    const eventos = Array.from({ length: 10 }, (_, index) => index); // Crear 10 eventos 
+      const eventos = Array.from({ length: 10 }, (_, index) => ({
+        id: index,
+        text: `Evento ${index + 1}`,
+        description: `Descripción del evento ${index + 1}`,
+        date: '01/01/2023',
+        imageSource: require('../../assets/eventos.png'),
+      }));
 
     return (
-        <View style={styles.container}>
+      <View style={styles.container}>
       <ScrollView style={styles.scrollView}>
-        {eventos.map((item, index) => (
-          <TouchableOpacity key={index} style={styles.eventosContainer} onPress={() => navigation.navigate('DetallesEventos')}>
-            <Image
-              source={require('../../assets/eventos.png')}
-              style={styles.image}
-              resizeMode="cover"
-            />
-            <Text style={styles.dateText}>Fecha: 02/12/2023</Text>
-          </TouchableOpacity>
+        {eventos.map((evento) => (
+          <EventoItem
+            key={evento.id}
+            onPress={() => navigation.navigate('DetallesEventos')}
+            text={evento.text}
+            description={evento.description}
+            date={evento.date}
+            imageSource={evento.imageSource}
+          />
         ))}
       </ScrollView>
       <TouchableOpacity style={styles.addButton} onPress={() => navigation.navigate('AddEvento')}>
@@ -49,26 +54,6 @@ const styles = StyleSheet.create({
   scrollView: {
     width: '100%',
     height: '100%',
-  },
-  eventosContainer: {
-    height: 150,
-    width: '95%',
-    marginVertical: 5,
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#FFFFFF',
-    borderRadius: 5,
-    paddingHorizontal: 10,
-  },
-  image: {
-    width: 150,
-    height: 140,
-    marginRight: 10,
-    borderRadius: 5,
-  },
-  dateText: {
-    fontSize: 12,
-    color: '#333333',
   },
   addButton: {
     position: 'absolute',

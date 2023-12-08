@@ -54,26 +54,6 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
   },
-  denunciaContainer: {
-    height: 150,
-    width: '95%',
-    marginVertical: 5,
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#FFFFFF',
-    borderRadius: 5,
-    paddingHorizontal: 10,
-  },
-  image: {
-    width: 150,
-    height: 140,
-    marginRight: 10,
-    borderRadius: 5,
-  },
-  dateText: {
-    fontSize: 12,
-    color: '#333333',
-  },
   addButton: {
     position: 'absolute',
     bottom: 20,

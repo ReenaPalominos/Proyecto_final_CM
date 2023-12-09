@@ -1,9 +1,10 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { LoginComponent } from '../components/loginComponent';
+import { LoginComponent } from '../components/LoginComponent';
 
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { StackParamList } from '../navigators/NavBar';
+
 type Props = {
     navigation: NativeStackNavigationProp<StackParamList>;
 }

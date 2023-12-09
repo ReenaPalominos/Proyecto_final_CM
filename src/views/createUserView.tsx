@@ -4,7 +4,7 @@ import { StyleSheet, Image, View, Text, Button, TextInput, Alert, Pressable, Saf
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { StackParamList } from '../navigators/NavBar';
 
-import { CreateUserComponent } from '../components/createUserComponent';
+import { CreateUserComponent } from '../components/CreateUserComponent';
 
 type Props = {
     navigation: NativeStackNavigationProp<StackParamList>;

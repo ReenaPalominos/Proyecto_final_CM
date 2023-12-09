@@ -39,6 +39,7 @@ Ya que se instalaron las dependencias, se procede a ejecutar la aplicación.
 
 ```
 $ npm start
+$ REACT_NATIVE_PACKAGER_HOSTNAME=[IP] npm start
 ```
 Finalmente, tomamos la nuestro dispositivo móvil y escaneamos el código QR que nos aparece en la terminal en la aplicación de Expo Go.
 

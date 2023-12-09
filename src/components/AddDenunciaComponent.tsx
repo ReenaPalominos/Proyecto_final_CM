@@ -22,44 +22,50 @@ import { db, storage } from "../services/firebaseConfig";
 import { ref, uploadBytesResumable, getStorage, getDownloadURL } from 'firebase/storage';
 
 /* Para la subida de imágenes. */
-import * as ImagePicker from "expo-image-picker";;
+import * as ImagePicker from "expo-image-picker";
 import * as Progress from 'react-native-progress';
 import uuid from 'react-native-uuid';
 
 /* Components */
 import { GaleryComponent } from "./GaleryComponent";
 import { UploadComponent } from "./UploadComponent";
+import { FormComponent } from "./FormComponent";
+import { set } from "firebase/database";
 
 
 
-export const denunciaComponent = () => {
+export const AddDenunciaComponent = () => {
     const [image, setImage] = useState<string>("");
     const [imageToken, setImageToken] = useState<string | number[]>("");
 
-    const [uploading, setUploading] = useState(false);
-    const [transferred, setTransferred] = useState(0);
     const [fileUpload, setFileUpload] = useState(false);
 
-    const [file, setFile] = useState<string>("");
+    const [file, setFile] = useState<unknown>("");
 
+    const handleImage = (imageUrl: string) => {
+        setImage(imageUrl);
+    };
 
+    const handleUpload = (image: string, imageToken: string | number[], fileUpload: boolean, file: unknown) => {
+        console.log(" ImageToken: " + imageToken + " FileUpload: " + fileUpload + " File: " + file);
+        
+        setImage(image);
+        setImageToken(imageToken);
+        setFileUpload(fileUpload);
+        setFile(file);
+    };
 
     return (
         <SafeAreaView style={styles.container}>
             {fileUpload ? (
-                <View>
-                    <Text style={styles.titleContainer}>Nueva Denuncia</Text>
-                    
-                    {file !== "" ? (
-                        <Image source={{ uri: file }} style={styles.imageBox} />
-                    ) : ""}
-                    <Text style={styles.textContainer}>Descripción</Text>
-                    <TextInput style={styles.textContainer} placeholder="Ingresa una descripción..." />
-                </View>
+                <FormComponent
+                    token={imageToken}
+                    file={file}
+                />
             ) : (
                 <>
                     <GaleryComponent
-                        image={image}
+                        onImageSelected={handleImage}
                     />
                     
                     <TouchableOpacity style={styles.cameraPicker} /* onPress={selectImage} */>
@@ -67,26 +73,13 @@ export const denunciaComponent = () => {
                     </TouchableOpacity>
                     
                     <Text style={styles.titleContainer}>Subir imagen</Text>
-                    <Text style={styles.textContainer}>Vamos a seleccionar la imagen o puedes capturar una.</Text>
+                    <Text style={styles.textContainer}>Selecciona una imagen de tu galería o captura una nueva.</Text>
                     
                     <View style={styles.imageContainer}>
-                        {image !== "" ? (
-                            <Image source={{ uri: image }} style={styles.imageBox} />
-                        ) : ""}
-                        
-                        {uploading ? (
-                            <View style={styles.progressBarContainer}>
-                                <Progress.Bar progress={transferred} width={300} />
-                            </View>
-                        ) : (
-                            <UploadComponent
+                        <UploadComponent
                                 image={image}
-                                imageToken={imageToken}
-                                uploading={uploading}
-                                transferred={transferred}
-                                fileUpload={fileUpload}
+                                onUploadUpdate={handleUpload}
                             />
-                        )}
                     </View>
                 </>
             )}
@@ -98,11 +91,6 @@ export const denunciaComponent = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        borderWidth: 1,
-        borderColor: 'black',
-        borderRadius: 16,
-        padding: 10,
-        margin: 10,
     },
     titleContainer: {
         fontSize: 36,

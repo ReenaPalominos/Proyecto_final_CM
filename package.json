@@ -35,7 +35,8 @@
     "react-native-svg": "13.9.0",
     "react-native-uuid": "^2.0.1",
     "react-navigation": "^5.0.0",
-    "@expo/webpack-config": "^19.0.0"
+    "@expo/webpack-config": "^19.0.0",
+    "expo-location": "~16.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

@@ -23,6 +23,7 @@ import { getDatabase, ref, set } from "firebase/database";
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { StackParamList } from '../navigators/NavBar';
 import { useNavigation } from '@react-navigation/native';
+import { setLogLevel } from 'firebase/app';
 
 type Props = {
     navigation: NativeStackNavigationProp<StackParamList>;
@@ -37,6 +38,8 @@ export const FormComponent = ({ token, file }: IGaleryComponentProps) => {
     const [userId, setUserId] = useState('');
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
+    const [latitud, setLatitud] = useState('31.0001');
+    const [longitud, setLongitud] = useState('77.0001');
     const [isPressed, setIsPressed] = useState(false);
 
     const userID = auth.currentUser;
@@ -108,6 +111,39 @@ export const FormComponent = ({ token, file }: IGaleryComponentProps) => {
                 multiline
                 numberOfLines={4}
             />
+            <View style={{
+                    width: 450,
+                    height: 90,
+                    borderColor: 'gray',
+                    borderWidth: 1,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                }}
+            >
+                <Text>Ubicación</Text>
+                <View style={{
+                    flexDirection: 'row',
+                    width: 450,
+                    height: 60,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    }}
+                >
+                    <TextInput
+                        style={styles.inputLatitud}
+                        onChangeText={setLatitud}
+                        value={latitud}
+                        editable={false}
+                    />
+                    <TextInput
+                        style={styles.inputLongitud}
+                        onChangeText={setLongitud}
+                        value={longitud}
+                        editable={false}
+                    />
+                </View>
+                
+            </View>
 
             {file !== "" ? (
                 <Image source={{ uri: file as string }} style={styles.imageBox} />
@@ -154,6 +190,27 @@ const styles = StyleSheet.create({
         borderColor: 'gray',
         borderWidth: 1,
         marginBottom: 20,
+        padding: 10,
+    },
+    inputLatitud: {
+        width: 200,
+        height: 40,
+        
+        textAlign: "center",
+        borderColor: 'gray',
+        borderWidth: 1,
+        
+        padding: 10,
+    },
+    inputLongitud: {
+        width: 200,
+        height: 40,
+        
+        textAlign: "center",
+        borderColor: 'gray',
+        borderWidth: 1,
+
+        marginLeft: 10,
         padding: 10,
     },
     imageBox: {

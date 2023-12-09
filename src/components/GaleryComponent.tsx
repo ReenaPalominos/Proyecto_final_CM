@@ -5,7 +5,11 @@ import { Ionicons } from "@expo/vector-icons";
 /* Para la subida de imágenes. */
 import * as ImagePicker from "expo-image-picker";
 
-export const GaleryComponent = ({ image }: { image: string }) => {
+interface IGaleryComponentProps {
+    onImageSelected: (image: string) => void;
+}
+
+export const GaleryComponent = ({ onImageSelected }: IGaleryComponentProps) => {
     const selectImage = async () => {
         const { granted } = await ImagePicker.requestMediaLibraryPermissionsAsync();
         if (!granted) {
@@ -22,7 +26,7 @@ export const GaleryComponent = ({ image }: { image: string }) => {
         });
 
         if (!result.canceled) {
-            image = result.assets[0].uri;
+            onImageSelected(result.assets[0].uri);
         }
     };
 

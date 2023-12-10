@@ -24,6 +24,8 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { StackParamList } from '../navigators/NavBar';
 import { useNavigation } from '@react-navigation/native';
 import { setLogLevel } from 'firebase/app';
+import { getLocation } from '../services/location';
+
 
 type Props = {
     navigation: NativeStackNavigationProp<StackParamList>;
@@ -38,8 +40,8 @@ export const FormComponent = ({ token, file }: IGaleryComponentProps) => {
     const [userId, setUserId] = useState('');
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
-    const [latitud, setLatitud] = useState('31.0001');
-    const [longitud, setLongitud] = useState('77.0001');
+    const [latitud, setLatitud] = useState('');
+    const [longitud, setLongitud] = useState('');
     const [isPressed, setIsPressed] = useState(false);
 
     const userID = auth.currentUser;
@@ -48,8 +50,20 @@ export const FormComponent = ({ token, file }: IGaleryComponentProps) => {
 
     useEffect(() => {
         setUserId(userID?.email || 'No hay ningún usuario autenticado');
+        setubication();
     }, []);
+  
+    const setubication=async() => {
+        let ubicacion= await getLocation();
+        if(ubicacion!==undefined){
+            let [lat,lon]=ubicacion;
+            setLatitud(lat);
+            setLongitud(lon);
+        }
+    }
+    
 
+    
     const handleSubmit = ({ navigation }: Props) => {
 
         const date = new Date();
@@ -62,6 +76,8 @@ export const FormComponent = ({ token, file }: IGaleryComponentProps) => {
             description,
             file,
             userId,
+            latitud,
+            longitud,
         };
 
         const db = getDatabase();
@@ -131,13 +147,11 @@ export const FormComponent = ({ token, file }: IGaleryComponentProps) => {
                 >
                     <TextInput
                         style={styles.inputLatitud}
-                        onChangeText={setLatitud}
                         value={latitud}
                         editable={false}
                     />
                     <TextInput
                         style={styles.inputLongitud}
-                        onChangeText={setLongitud}
                         value={longitud}
                         editable={false}
                     />

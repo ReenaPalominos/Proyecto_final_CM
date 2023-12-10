@@ -73,6 +73,8 @@ export const FormEventComponent = ({ token, file }: IGaleryComponentProps) => {
             description,
             file,
             userId,
+            latitud,
+            longitud,
         };
 
         const db = getDatabase();

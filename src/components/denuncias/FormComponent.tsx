@@ -129,7 +129,7 @@ export const FormComponent = ({ token, file }: IGaleryComponentProps) => {
                 numberOfLines={4}
             />
             <View style={{
-                    width: 450,
+                    width: '100%',
                     height: 90,
                     borderColor: 'gray',
                     borderWidth: 1,

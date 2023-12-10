@@ -6,6 +6,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { DatosDenuncia } from "../interfaces/denuncias.interface";
+import { DatosEvento } from "../interfaces/eventos.interface";
 
 import Vistas from '../views/vistasView';
 import Denuncias from '../views/denuncias/denunciasView';
@@ -36,7 +37,7 @@ export type StackParamList = {
     Usuario: undefined;
     DetallesDenuncia: DatosDenuncia;
     AddDenuncia: undefined;
-    DetallesEventos: undefined;
+    DetallesEventos: DatosEvento;
     AddEvento: undefined;
     Mapa: undefined;
     AboutUs: undefined;

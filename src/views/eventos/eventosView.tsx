@@ -50,7 +50,17 @@ export default function Eventos({ navigation }: Props) {
                 {_eventos.map((eventos) => (
                     <EventoItem
                         key={eventos.token.toString()}
-                        onPress={() => navigation.navigate('DetallesEventos')}
+                        onPress={() => navigation.navigate('DetallesEventos',{
+                              token: eventos.token,
+                              title: eventos.title,
+                              description: eventos.description,
+                              timestamp: eventos.timestamp,
+                              file: eventos.file,
+                              userId: eventos.userId,
+                              latitud: eventos.latitud,
+                              longitud: eventos.longitud,
+                            })
+                        }
                         text={eventos.title}
                         description={eventos.description}
                         date={eventos.timestamp}

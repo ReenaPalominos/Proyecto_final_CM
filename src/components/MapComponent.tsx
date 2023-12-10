@@ -1,24 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import MapView, { Marker } from "react-native-maps";
 import { StyleSheet, View } from "react-native";
-interface Iprops{
-    lat:string;
-    long:string;
+
+
+interface MapComponentProps {
+    latitud: number;
+    longitud: number;
 }
 
-export const MapComponent = ({lat,long}:Iprops ) => {
-    let x=Number(lat)
-    let y=Number(long)
+export const MapComponent: React.FC<MapComponentProps> = ({ latitud, longitud }) => {
+    const [markers, setMarkers] = useState([{ latitude: latitud, longitude: longitud }])
 
-    const [markers, setMarkers] = useState([{ latitude: x, longitude: y }])
-   
     return (
         <View style={styles.container}>
             <MapView style={styles.map} provider={'google'} showsUserLocation showsMyLocationButton initialRegion={{latitude: -33.466008, longitude: -70.598194, latitudeDelta: 0.01, longitudeDelta: 0.01}}>
                 {markers.map((marker, index) => (
                     <Marker key={index} coordinate={{ latitude: marker.latitude, longitude: marker.longitude }}></Marker>
                 ))}
-
             </MapView>
         </View>
     )

@@ -24,7 +24,7 @@ export default function DetallesDenuncia() {
       <Text style={styles.descriptionText}>
         {description}
       </Text>
-      <MapComponent latitud={latitud} longitud={longitud}/>
+      <MapComponent latitud={Number(latitud)} longitud={Number(longitud)}/>
       <Text style={styles.footerText}>
         Fecha: {new Date(timestamp).toLocaleDateString()} | Autor: {userId}
       </Text>

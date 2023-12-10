@@ -14,6 +14,7 @@ import { getDatabase, ref, onValue, off } from "firebase/database";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { StackParamList } from "../../navigators/NavBar";
 
+
 import DenunciaItem from "../../components/denuncias/DenunciaItem";
 import { DatosDenuncia } from "../../interfaces/denuncias.interface";
 
@@ -24,7 +25,7 @@ type Props = {
 export default function Denuncias({ navigation }: Props) {
   // crear constante para las denuncias
   const [_denuncias, setDenuncias] = useState<DatosDenuncia[]>([]);
-
+  
   useFocusEffect(
     useCallback(() => {
       const db = getDatabase();
@@ -89,8 +90,8 @@ export default function Denuncias({ navigation }: Props) {
                 token: denuncia.token,
                 title: denuncia.title,
                 description: denuncia.description,
-                date: denuncia.timestamp,
-                imageSource: denuncia.file,
+                timestamp: denuncia.timestamp,
+                file: denuncia.file,
                 userId: denuncia.userId,
                 latitud: denuncia.latitud,
                 longitud: denuncia.longitud,

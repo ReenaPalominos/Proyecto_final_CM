@@ -5,6 +5,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+import { DatosDenuncia } from "../interfaces/denuncias.interface";
+
 import Vistas from '../views/vistasView';
 import Denuncias from '../views/denuncias/denunciasView';
 import Eventos from '../views/eventos/eventosView';
@@ -32,12 +34,13 @@ export type StackParamList = {
     Denuncias: undefined;
     Eventos: undefined;
     Usuario: undefined;
-    DetallesDenuncia: undefined;
+    DetallesDenuncia: DatosDenuncia;
     AddDenuncia: undefined;
     DetallesEventos: undefined;
     AddEvento: undefined;
     Mapa: undefined;
     AboutUs: undefined;
+
 };
 
 function LoginUser() {

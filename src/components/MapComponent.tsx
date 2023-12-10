@@ -13,7 +13,7 @@ export const MapComponent: React.FC<MapComponentProps> = ({ latitud, longitud })
 
     return (
         <View style={styles.container}>
-            <MapView style={styles.map} provider={'google'} showsUserLocation showsMyLocationButton initialRegion={{latitude: -33.466008, longitude: -70.598194, latitudeDelta: 0.01, longitudeDelta: 0.01}}>
+            <MapView style={styles.map} provider={'google'} showsUserLocation showsMyLocationButton initialRegion={{latitude: latitud, longitude: longitud, latitudeDelta: 0.01, longitudeDelta: 0.01}}>
                 {markers.map((marker, index) => (
                     <Marker key={index} coordinate={{ latitude: marker.latitude, longitude: marker.longitude }}></Marker>
                 ))}

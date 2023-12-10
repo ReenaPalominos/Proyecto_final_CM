@@ -12,6 +12,14 @@ export default function DetallesDenuncia() {
   // Acceder a los parámetros
   const { token, title, description, timestamp, file, userId, latitud, longitud } = params;
 
+  console.log(timestamp);
+  
+  const dateObject = new Date(timestamp);
+  
+  const formattedDate = dateObject.toLocaleDateString("es-ES");
+  const formattedTime = dateObject.toLocaleTimeString("es-ES");
+  
+  
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
@@ -26,7 +34,7 @@ export default function DetallesDenuncia() {
       </Text>
       <MapComponent latitud={Number(latitud)} longitud={Number(longitud)}/>
       <Text style={styles.footerText}>
-        Fecha: {new Date(timestamp).toLocaleDateString()} | Autor: {userId}
+        Fecha: {formattedDate} {formattedTime} | Autor: {userId}
       </Text>
     </View>
   );

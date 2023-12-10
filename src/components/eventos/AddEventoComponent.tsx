@@ -18,7 +18,7 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 
 /* FireBase */
-import { db, storage } from "../services/firebaseConfig";
+import { db, storage } from "../../services/firebaseConfig";
 import { ref, uploadBytesResumable, getStorage, getDownloadURL } from 'firebase/storage';
 
 /* Para la subida de imágenes. */
@@ -27,14 +27,14 @@ import * as Progress from 'react-native-progress';
 import uuid from 'react-native-uuid';
 
 /* Components */
-import { GaleryComponent } from "./GaleryComponent";
-import { UploadComponent } from "./UploadComponent";
-import { FormComponent } from "./FormComponent";
+import { GaleryComponent } from "../GaleryComponent";
+import { UploadEventComponent } from "./UploadEventComponent";
+import { FormEventComponent } from "./FormEventComponent";
 import { set } from "firebase/database";
 
 
 
-export const AddDenunciaComponent = () => {
+export const AddEventoComponent = () => {
     const [image, setImage] = useState<string>("");
     const [imageToken, setImageToken] = useState<string | number[]>("");
 
@@ -58,7 +58,7 @@ export const AddDenunciaComponent = () => {
     return (
         <SafeAreaView style={styles.container}>
             {fileUpload ? (
-                <FormComponent
+                <FormEventComponent
                     token={imageToken}
                     file={file}
                 />
@@ -76,7 +76,7 @@ export const AddDenunciaComponent = () => {
                     <Text style={styles.textContainer}>Selecciona una imagen de tu galería o captura una nueva.</Text>
                     
                     <View style={styles.imageContainer}>
-                        <UploadComponent
+                        <UploadEventComponent
                                 image={image}
                                 onUploadUpdate={handleUpload}
                             />

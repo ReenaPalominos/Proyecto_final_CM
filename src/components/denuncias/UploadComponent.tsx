@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Alert, TouchableOpacity, View, Image, Text, StyleSheet } from 'react-native';
-import { storage } from "../services/firebaseConfig";
+import { storage } from "../../services/firebaseConfig";
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 
 import * as Progress from 'react-native-progress';

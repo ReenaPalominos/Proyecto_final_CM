@@ -1,23 +1,23 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
-import { MapComponent } from '../components/MapComponent';
+import { MapComponent } from '../../components/MapComponent';
 
-export default function Eventos() {
+export default function Denuncias() {
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
         <Image
-          source={require('../../assets/eventos.png')}
+          source={require('../../../assets/calle.jpg')}
           style={styles.image}
           resizeMode="cover"
         />
       </View>
       <Text style={styles.descriptionText}>
-        Descripción del evento aquí...
+        Descripción de la denuncia aquí...
       </Text>
       <MapComponent/>
       <Text style={styles.footerText}>
-        Fecha: 02/12/2023 | Autor: Usuario123
+        Fecha: 01/12/2023 | Autor: Usuario123
       </Text>
     </View>
   );

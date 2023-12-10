@@ -17,11 +17,11 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-import { auth } from "../services/firebaseConfig";
+import { auth } from "../../services/firebaseConfig";
 import { getDatabase, ref, set } from "firebase/database";
 
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { StackParamList } from '../navigators/NavBar';
+import { StackParamList } from '../../navigators/NavBar';
 import { useNavigation } from '@react-navigation/native';
 import { setLogLevel } from 'firebase/app';
 import { getLocation } from '../services/location';
@@ -139,7 +139,7 @@ export const FormComponent = ({ token, file }: IGaleryComponentProps) => {
                 <Text>Ubicación</Text>
                 <View style={{
                     flexDirection: 'row',
-                    width: 450,
+                    width: 350,
                     height: 60,
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -207,7 +207,7 @@ const styles = StyleSheet.create({
         padding: 10,
     },
     inputLatitud: {
-        width: 200,
+        width: 190,
         height: 40,
         
         textAlign: "center",
@@ -217,7 +217,7 @@ const styles = StyleSheet.create({
         padding: 10,
     },
     inputLongitud: {
-        width: 200,
+        width: 190,
         height: 40,
         
         textAlign: "center",
@@ -228,8 +228,8 @@ const styles = StyleSheet.create({
         padding: 10,
     },
     imageBox: {
-        width: 450,
-        height: 300,
+        // width: 450,
+        height: 150,
 
         marginTop: 20,
         marginBottom: 20,

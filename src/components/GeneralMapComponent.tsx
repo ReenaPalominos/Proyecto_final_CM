@@ -3,11 +3,11 @@ import MapView, { Marker } from "react-native-maps";
 import { StyleSheet, View } from "react-native";
 import { getLocation } from "../services/location";
 
-import { Locations} from "../interfaces/location.interface";
+import { Datos} from "../interfaces/datos.interface";
 import Loading from "./Loading";
 
 interface IProps {
-    location_array: Locations[];
+    location_array: Datos[];
 }
 
 export const GMapComponent : React.FC<IProps> = ( {location_array} ) => {

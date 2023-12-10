@@ -3,13 +3,13 @@ import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { MapComponent } from '../../components/MapComponent';
 import { useRoute } from '@react-navigation/native';
 
-import { DatosEvento } from '../../interfaces/eventos.interface';
+import { Datos } from '../../interfaces/datos.interface';
 
 
 export default function DetallesEventos() {
   const route = useRoute();
 
-  const params = route.params as DatosEvento;
+  const params = route.params as Datos;
   // Acceder a los parámetros
   const { token, title, description, timestamp, file, userId, latitud, longitud } = params;
 

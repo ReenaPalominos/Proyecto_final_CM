@@ -9,7 +9,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { StackParamList } from '../../navigators/NavBar';
 
 import EventoItem from '../../components/eventos/EventoItem';
-import { DatosEvento } from '../../interfaces/eventos.interface';
+import { Datos } from '../../interfaces/datos.interface';
 
 type Props = {
     navigation: NativeStackNavigationProp<StackParamList>;
@@ -17,7 +17,7 @@ type Props = {
 
 export default function Eventos({ navigation }: Props) {
     // crear constante para las denuncias
-    const [_eventos, setEventos] = useState<DatosEvento[]>([]);
+    const [_eventos, setEventos] = useState<Datos[]>([]);
 
     useFocusEffect(
         useCallback(() => {

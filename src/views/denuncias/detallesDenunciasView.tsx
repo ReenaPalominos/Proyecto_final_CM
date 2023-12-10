@@ -3,12 +3,12 @@ import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { MapComponent } from '../../components/MapComponent';
 import { useRoute } from '@react-navigation/native';
 
-import { DatosDenuncia } from '../../interfaces/denuncias.interface';
+import { Datos } from '../../interfaces/datos.interface';
 
 export default function DetallesDenuncia() {
   const route = useRoute();
 
-  const params = route.params as DatosDenuncia;
+  const params = route.params as Datos;
   // Acceder a los parámetros
   const { token, title, description, timestamp, file, userId, latitud, longitud } = params;
 

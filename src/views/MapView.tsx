@@ -16,7 +16,7 @@ import { getDatabase, ref, onValue, off, set } from "firebase/database";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { StackParamList } from "../navigators/NavBar";
 
-import { Locations } from "../interfaces/location.interface";
+import { Datos } from "../interfaces/datos.interface";
 
 type Props = {
     navigation: NativeStackNavigationProp<StackParamList>;
@@ -26,7 +26,7 @@ type Props = {
 
 export default function MapView({ navigation }: Props) {
     // crear constante para las denuncias
-    const [_locations, setLocations] = useState<Locations[]>([]);
+    const [_locations, setLocations] = useState<Datos[]>([]);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {

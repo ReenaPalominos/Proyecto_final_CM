@@ -1,4 +1,4 @@
-export interface Locations {
+export interface Datos {
     token: string | number[];
     timestamp: number;
     title: string;

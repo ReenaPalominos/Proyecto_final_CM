@@ -16,7 +16,7 @@ import { StackParamList } from "../../navigators/NavBar";
 
 
 import DenunciaItem from "../../components/denuncias/DenunciaItem";
-import { DatosDenuncia } from "../../interfaces/denuncias.interface";
+import { Datos } from "../../interfaces/datos.interface";
 
 type Props = {
   navigation: NativeStackNavigationProp<StackParamList>;
@@ -24,7 +24,7 @@ type Props = {
 
 export default function Denuncias({ navigation }: Props) {
   // crear constante para las denuncias
-  const [_denuncias, setDenuncias] = useState<DatosDenuncia[]>([]);
+  const [_denuncias, setDenuncias] = useState<Datos[]>([]);
   
   useFocusEffect(
     useCallback(() => {

@@ -1,13 +1,13 @@
 import React from "react";
 import { StyleSheet, View, Text } from "react-native";
-import { MapComponent } from "../components/MapComponent";
+import { GMapComponent } from "../components/GeneralMapComponent";
 
 export default function MapView(){
     return(
         
             
         <View style={style.container}>
-            <MapComponent/>
+            <GMapComponent/>
         </View>
         
     )

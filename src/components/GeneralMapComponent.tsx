@@ -1,14 +1,26 @@
 import React, { useEffect, useState } from "react";
 import MapView, { Marker } from "react-native-maps";
 import { StyleSheet, View } from "react-native";
+import { getLocation } from "../services/location";
 
 
-interface MapComponentProps {
-    latitud: number;
-    longitud: number;
-}
+export const GMapComponent= () => {
+    
+    const [latitud,setLatitud]=useState(0);
+    const [longitud,setLongitud]=useState(0);
+    const getIntLocation=async() => {
+        let ubicacion= await getLocation();
+        if(ubicacion!==undefined){
+            let [lat,lon]=ubicacion;
+            setLatitud(Number(lat));
+            setLongitud(Number(lon));
+        }
+    }
+   
+   useEffect(() => {
+    getIntLocation();
+    }, []);
 
-export const MapComponent: React.FC<MapComponentProps> = ({ latitud, longitud }) => {
     const [markers, setMarkers] = useState([{ latitude: latitud, longitude: longitud }])
 
     return (

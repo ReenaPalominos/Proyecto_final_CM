@@ -22,6 +22,11 @@ export default function DetallesDenuncia() {
   
   return (
     <View style={styles.container}>
+      <View>
+        <Text style={styles.descriptionText}>
+          {title}
+        </Text>
+      </View>
       <View style={styles.imageContainer}>
         <Image
           source={{ uri: file }}

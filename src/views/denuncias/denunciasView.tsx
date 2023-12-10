@@ -32,8 +32,8 @@ export default function Denuncias({ navigation }: Props) {
     
                 // Accediendo a los datos
                 for (let key in data) {
-                    const { token, timestamp, title, description, file, userId } = data[key];
-                    const newDenuncia = { token, title, timestamp, description, file, userId };
+                    const { token, timestamp, title, description, file, userId, latitud, longitud } = data[key];
+                    const newDenuncia = { token, title, timestamp, description, file, userId, latitud, longitud};
                     setDenuncias((prevState) => [...prevState, newDenuncia]);
                     console.log('Datos: ', token, timestamp, title, description, file, userId);
                 }

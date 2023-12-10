@@ -32,8 +32,8 @@ export default function Eventos({ navigation }: Props) {
     
                 // Accediendo a los datos
                 for (let key in data) {
-                    const { token, timestamp, title, description, file, userId } = data[key];
-                    const newEvento = { token, title, timestamp, description, file, userId };
+                    const { token, timestamp, title, description, file, userId, latitud, longitud} = data[key];
+                    const newEvento = { token, title, timestamp, description, file, userId, latitud, longitud};
                     setEventos((prevState) => [...prevState, newEvento]);
                     console.log('Datos: ', token, timestamp, title, description, file, userId);
                 }

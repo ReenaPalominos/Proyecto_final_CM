@@ -76,9 +76,19 @@ export default function MapView({ navigation }: Props) {
                 );
             }
             setLoading(false);
-        });
+        });       
+        return () => {
+            unsubscribe();
+        }
+    }, []);
 
-        /* const unsubscribe2 = onValue(dbRef2, (snapshot) => {
+    useEffect(() => {
+        setLoading(true);
+
+        const db = getDatabase();
+        const dbRef = ref(db, "Eventos/");
+    
+        const unsubscribe = onValue(dbRef, (snapshot) => {
             const data = snapshot.val();
     
             for (let key in data) {
@@ -116,12 +126,9 @@ export default function MapView({ navigation }: Props) {
                 );
             }
             setLoading(false);
-        }); */
-        
-        
+        });       
         return () => {
             unsubscribe();
-            /* unsubscribe2(); */
         }
     }, []);
 

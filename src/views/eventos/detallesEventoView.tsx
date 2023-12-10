@@ -1,23 +1,45 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { MapComponent } from '../../components/MapComponent';
+import { useRoute } from '@react-navigation/native';
 
-export default function Eventos() {
+import { DatosEvento } from '../../interfaces/eventos.interface';
+
+
+export default function DetallesEventos() {
+  const route = useRoute();
+
+  const params = route.params as DatosEvento;
+  // Acceder a los parámetros
+  const { token, title, description, timestamp, file, userId, latitud, longitud } = params;
+
+  console.log(timestamp);
+  
+  const dateObject = new Date(timestamp);
+  
+  const formattedDate = dateObject.toLocaleDateString("es-ES");
+  const formattedTime = dateObject.toLocaleTimeString("es-ES");
+
   return (
     <View style={styles.container}>
+      <View>
+        <Text style={styles.descriptionText}>
+          {title}
+        </Text>
+      </View>
       <View style={styles.imageContainer}>
         <Image
-          source={require('../../../assets/eventos.png')}
+          source={{ uri: file }}
           style={styles.image}
           resizeMode="cover"
         />
       </View>
       <Text style={styles.descriptionText}>
-        Descripción del evento aquí...
+        {description}
       </Text>
-      <MapComponent/>
+      <MapComponent latitud={Number(latitud)} longitud={Number(longitud)}/>
       <Text style={styles.footerText}>
-        Fecha: 02/12/2023 | Autor: Usuario123
+        Fecha: {formattedDate} {formattedTime} | Autor: {userId}
       </Text>
     </View>
   );

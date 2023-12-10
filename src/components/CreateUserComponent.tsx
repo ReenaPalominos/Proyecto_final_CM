@@ -8,6 +8,18 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { StackParamList } from '../navigators/NavBar';
 
 import { signIn } from '../services/auth';
+import {auth} from '../services/firebaseConfig';
+
+import { getDatabase, ref as databaseRef, set } from "firebase/database";
+import { GaleryComponent } from '../components/GaleryComponent';
+import { storage } from "../services/firebaseConfig";
+import { ref as storageRef, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
+
+interface IUploadComponentProps {
+    onUploadUpdate: (image: string, token: string | number[], fileUpload: boolean, file: unknown) => void;
+
+    image: string;
+}
 
 type Props = {
     navigation: NativeStackNavigationProp<StackParamList>;
@@ -18,12 +30,25 @@ export const CreateUserComponent = ({ navigation } : Props) => {
     const [password, setPassword] = useState('');
     const [isButtonPressed, setIsButtonPressed] = useState(false);
 
+    const [image, setImage] = useState<string>("");
+
+
+
+
+    const [transferred, setTransferred] = useState(0);
+
+
+    const imageSelected = image;
+
     const registerApp = async () => { 
         setIsButtonPressed(true);
 
         const success = await signIn(email, password);
         if (success) {
             Alert.alert('Usuario Creado','Redirigiendo al inicio de sesión...');
+            const userID = auth.currentUser;
+            console.log("uid creado: "+userID?.uid);
+            createProfile(userID?.uid);
             navigation.navigate('Login');
         } else {
             Alert.alert('Error','Usuario o contraseña incorrectos');
@@ -31,6 +56,36 @@ export const CreateUserComponent = ({ navigation } : Props) => {
         
         setIsButtonPressed(false);
     };
+
+    
+    const createProfile = async (user_uid: string | undefined) => {
+        // console.log(userID);
+        // const uid = userID?.uid;
+        // console.log("UID: " + uid)
+        const username = email;
+
+        const formData = {
+            user_uid,
+            email,
+            username,
+        };
+
+        const db = getDatabase();
+
+        // console.log("Token: " + token);
+
+        const newFormRef = databaseRef(db, "Profile/" + user_uid);
+
+        set(newFormRef, formData)
+            .then(() => {
+                console.log("Formulario enviado con éxito");
+                // Alert.alert("Formulario enviado con éxito");
+            })
+            .catch((error) => {
+                console.log("Error al enviar el formulario: " + error);
+            });
+        };
+
 
     return (
         <SafeAreaView style={styles.container} >
@@ -48,7 +103,7 @@ export const CreateUserComponent = ({ navigation } : Props) => {
             </BlurView>
         </SafeAreaView>
     );
-}
+};
 
 const styles = StyleSheet.create({
     container: {

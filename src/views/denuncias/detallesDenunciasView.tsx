@@ -1,23 +1,32 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { MapComponent } from '../../components/MapComponent';
+import { useRoute } from '@react-navigation/native';
 
-export default function Denuncias() {
+import { DatosDenuncia } from '../../interfaces/denuncias.interface';
+
+export default function DetallesDenuncia() {
+  const route = useRoute();
+
+  const params = route.params as DatosDenuncia;
+  // Acceder a los parámetros
+  const { token, title, description, timestamp, file, userId, latitud, longitud } = params;
+
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
         <Image
-          source={require('../../../assets/calle.jpg')}
+          source={{ uri: file }}
           style={styles.image}
           resizeMode="cover"
         />
       </View>
       <Text style={styles.descriptionText}>
-        Descripción de la denuncia aquí...
+        {description}
       </Text>
-      <MapComponent/>
+      <MapComponent latitud={latitud} longitud={longitud}/>
       <Text style={styles.footerText}>
-        Fecha: 01/12/2023 | Autor: Usuario123
+        Fecha: {new Date(timestamp).toLocaleDateString()} | Autor: {userId}
       </Text>
     </View>
   );

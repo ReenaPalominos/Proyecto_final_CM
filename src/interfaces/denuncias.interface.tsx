@@ -3,7 +3,7 @@ export interface DatosDenuncia {
     timestamp: number;
     title: string;
     description: string;
-    file: string | unknown;
+    file: string;
     userId: string;
     latitud: string;
     longitud: string;

@@ -10,35 +10,19 @@ interface IProps {
 }
 
 export const GMapComponent : React.FC<IProps> = ( {location_array} ) => {
-    
-//     const [latitud,setLatitud]=useState(0);
-//     const [longitud,setLongitud]=useState(0);
-//     const getIntLocation=async() => {
-//         let ubicacion= await getLocation();
-//         if(ubicacion!==undefined){
-//             let [lat,lon]=ubicacion;
-//             setLatitud(Number(lat));
-//             setLongitud(Number(lon));
-//         }
-//     }
-   
-//    useEffect(() => {
-//     getIntLocation();
-//     }, []);
-
-
-    
-
     const [markers, setMarkers] = useState([{ latitude: 0, longitude: 0 }])
+    const [index, setIndex] = useState(0);
+
     useEffect(() => {
-        location_array.map((marker, index) => (
-            console.log("_-------------------_"),
-            console.log(index),
-            console.log(marker.latitud),
-            console.log(marker.longitud)
-            )
-        )
-    }, [location_array])
+        const newMarkers = location_array.map(location => ({
+            latitude: Number(location.latitud),
+            longitude: Number(location.longitud),
+        }));
+        
+        console.log(index, newMarkers);
+        setMarkers(newMarkers);
+        setIndex(index + 1);
+    }, [location_array]);
 
     return (
         <View style={styles.container}>

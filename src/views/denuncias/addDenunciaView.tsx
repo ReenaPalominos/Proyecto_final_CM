@@ -18,7 +18,7 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 
 /* FireBase */
-import { db, storage } from "../services/firebaseConfig";
+import { db, storage } from "../../services/firebaseConfig";
 import { ref, uploadBytesResumable, getStorage, getDownloadURL } from 'firebase/storage';
 
 /* Para la subida de imágenes. */
@@ -27,7 +27,7 @@ import * as Progress from 'react-native-progress';
 import uuid from 'react-native-uuid';
 
 /* Components */
-import { AddDenunciaComponent } from "../components/AddDenunciaComponent";
+import { AddDenunciaComponent } from "../../components/denuncias/AddDenunciaComponent";
 
 
 export default function AddDenuncia() {

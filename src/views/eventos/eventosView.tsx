@@ -6,26 +6,26 @@ import { useFocusEffect } from '@react-navigation/native';
 import { getDatabase, ref, onValue, off } from "firebase/database";
 
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { StackParamList } from '../navigators/NavBar';
+import { StackParamList } from '../../navigators/NavBar';
 
-import DenunciaItem from '../components/DenunciaItem';
-import { DatosDenuncia } from '../interfaces/denuncias.interface';
+import EventoItem from '../../components/eventos/EventoItem';
+import { DatosEvento } from '../../interfaces/eventos.interface';
 
 type Props = {
     navigation: NativeStackNavigationProp<StackParamList>;
 }
 
-export default function Denuncias({ navigation }: Props) {
+export default function Eventos({ navigation }: Props) {
     // crear constante para las denuncias
-    const [_denuncias, setDenuncias] = useState<DatosDenuncia[]>([]);
+    const [_eventos, setEventos] = useState<DatosEvento[]>([]);
 
     useFocusEffect(
         useCallback(() => {
             const db = getDatabase();
-            const dbRef = ref(db, "Denuncias/");
+            const dbRef = ref(db, "Eventos/");
             
             // Limpiar el estado de denuncias antes de cargar los nuevos datos
-            setDenuncias([]);
+            setEventos([]);
     
             onValue(dbRef, (snapshot) => {
                 const data = snapshot.val();
@@ -33,8 +33,8 @@ export default function Denuncias({ navigation }: Props) {
                 // Accediendo a los datos
                 for (let key in data) {
                     const { token, timestamp, title, description, file, userId } = data[key];
-                    const newDenuncia = { token, title, timestamp, description, file, userId };
-                    setDenuncias((prevState) => [...prevState, newDenuncia]);
+                    const newEvento = { token, title, timestamp, description, file, userId };
+                    setEventos((prevState) => [...prevState, newEvento]);
                     console.log('Datos: ', token, timestamp, title, description, file, userId);
                 }
             });
@@ -47,18 +47,18 @@ export default function Denuncias({ navigation }: Props) {
     return (
         <View style={styles.container}>
             <ScrollView style={styles.scrollView}>
-                {_denuncias.map((denuncia) => (
-                    <DenunciaItem
-                        key={denuncia.token.toString()}
-                        onPress={() => navigation.navigate('DetallesDenuncia')}
-                        text={denuncia.title}
-                        description={denuncia.description}
-                        date={denuncia.timestamp}
-                        imageSource={denuncia.file}
+                {_eventos.map((eventos) => (
+                    <EventoItem
+                        key={eventos.token.toString()}
+                        onPress={() => navigation.navigate('DetallesEventos')}
+                        text={eventos.title}
+                        description={eventos.description}
+                        date={eventos.timestamp}
+                        imageSource={eventos.file}
                     />
                 ))}
             </ScrollView>
-            <TouchableOpacity style={styles.addButton} onPress={() => navigation.navigate('AddDenuncia')}>
+            <TouchableOpacity style={styles.addButton} onPress={() => navigation.navigate('AddEvento')}>
                 <Text style={styles.addButtonText}>+</Text>
             </TouchableOpacity>
         </View>
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
     },
-    denunciaContainer: {
+    eventoContainer: {
         height: 150,
         width: '95%',
         marginVertical: 5,

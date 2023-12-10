@@ -6,19 +6,19 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import Vistas from '../views/vistasView';
-import Denuncias from '../views/denunciasView';
-import Eventos from '../views/eventosView';
+import Denuncias from '../views/denuncias/denunciasView';
+import Eventos from '../views/eventos/eventosView';
 import Usuario from '../views/usuarioView';
 import Login from '../views/loginView';
 import CreateUser from '../views/createUserView';
 
 import Mapa from '../views/MapView';
 
-import DetallesDenuncia from '../views/detallesDenunciasView';
-import AddDenuncia from '../views/addDenunciaView';
+import DetallesDenuncia from '../views/denuncias/detallesDenunciasView';
+import AddDenuncia from '../views/denuncias/addDenunciaView';
 
-import DetallesEventos from '../views/detallesEventoView';
-import AddEvento from '../views/addEventoView';
+import DetallesEventos from '../views/eventos/detallesEventoView';
+import AddEvento from '../views/eventos/addEventoView';
 
 import AboutUs from '../views/aboutUsView';
 

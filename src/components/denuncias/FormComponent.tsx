@@ -17,11 +17,11 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-import { auth } from "../services/firebaseConfig";
+import { auth } from "../../services/firebaseConfig";
 import { getDatabase, ref, set } from "firebase/database";
 
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { StackParamList } from '../navigators/NavBar';
+import { StackParamList } from '../../navigators/NavBar';
 import { useNavigation } from '@react-navigation/native';
 import { setLogLevel } from 'firebase/app';
 

@@ -5,4 +5,6 @@ export interface DatosEvento {
     description: string;
     file: string | unknown;
     userId: string;
+    latitud: string;
+    longitud: string;
 }

@@ -140,7 +140,7 @@ export const FormComponent = ({ token, file }: IGaleryComponentProps) => {
                 <Text>Ubicación</Text>
                 <View style={{
                     flexDirection: 'row',
-                    width: 350,
+                    width: '100%',
                     height: 60,
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
         marginBottom: 45,
     },
     input: {
-        width: 450,
+        width: '100%',
         height: 40,
 
         borderColor: 'gray',
@@ -197,7 +197,7 @@ const styles = StyleSheet.create({
         padding: 10,
     },
     inputDescription: {
-        width: 450,
+        width: '100%',
         height: 100,
         
         textAlign: "left",
@@ -208,7 +208,7 @@ const styles = StyleSheet.create({
         padding: 10,
     },
     inputLatitud: {
-        width: 190,
+        width: '45%',
         height: 40,
         
         textAlign: "center",
@@ -218,7 +218,7 @@ const styles = StyleSheet.create({
         padding: 10,
     },
     inputLongitud: {
-        width: 190,
+        width: '45%',
         height: 40,
         
         textAlign: "center",
@@ -229,21 +229,21 @@ const styles = StyleSheet.create({
         padding: 10,
     },
     imageBox: {
-        // width: 450,
+        width: '100%',
         height: 150,
 
         marginTop: 20,
         marginBottom: 20,
     },
     button: {
-        width: 450,
+        width: '100%',
         backgroundColor: '#007BFF',
         padding: 10,
         borderRadius: 5,
         alignItems: 'center',
     },
     buttonPressed: {
-        width: 450,
+        width: '100%',
         backgroundColor: '#0056b3',
         padding: 10,
         borderRadius: 5,

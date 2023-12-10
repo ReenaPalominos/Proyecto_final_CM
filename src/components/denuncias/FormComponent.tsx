@@ -24,7 +24,8 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { StackParamList } from '../../navigators/NavBar';
 import { useNavigation } from '@react-navigation/native';
 import { setLogLevel } from 'firebase/app';
-import { getLocation } from '../services/location';
+import { getLocation } from '../../services/location';
+
 
 
 type Props = {

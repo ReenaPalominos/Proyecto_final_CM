@@ -116,10 +116,8 @@ export default function Vistas({ navigation }: Props) {
                             ) : (
                                 <Image source={require('../../assets/icons/adaptive-icon.png')} style={styles.userImage} />
                             )}
-                            
-                            <Text style={styles.text}>{user}</Text>
                         </View>
-
+                        <Text style={styles.text}>{user}</Text>
                         <View style={styles.subContainer}>
                             <View style={styles.buttonRow}>
                                 <ButtonWithIcon onPress={() => navigation.navigate('Publicaciones', {

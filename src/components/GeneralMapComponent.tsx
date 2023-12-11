@@ -13,8 +13,8 @@ interface IProps {
 export const GMapComponent : React.FC<IProps> = ( {location_array} ) => {
     const [markers, setMarkers] = useState([{ latitude: 0, longitude: 0 }]);
     const [index, setIndex] = useState(0);
-    const [latitud, setLatitud] = useState(0);
-    const [longitud, setLongitud] = useState(0);
+    const [latitud, setLatitud] = useState(-33.466073260671145);
+    const [longitud, setLongitud] = useState(-70.59803679749545);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {

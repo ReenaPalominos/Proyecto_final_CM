@@ -1,5 +1,4 @@
 
-
 import React, { useState } from 'react';
 import { StyleSheet, Image, View, Text, Button, TextInput, Alert, Pressable, SafeAreaView } from 'react-native';
 import { BlurView } from "expo-blur";
@@ -30,7 +29,7 @@ export const CreateUserComponent = ({ navigation } : Props) => {
     const [password, setPassword] = useState('');
     const [isButtonPressed, setIsButtonPressed] = useState(false);
 
-    const [image, setImage] = useState<string>("");
+    const [image, setImage] = useState<string>("https://noticias.imer.mx/wp-content/uploads/2023/04/PORTADA-1.png");
 
 
 
@@ -84,7 +83,28 @@ export const CreateUserComponent = ({ navigation } : Props) => {
             .catch((error) => {
                 console.log("Error al enviar el formulario: " + error);
             });
-        };
+
+            const response = await fetch(image);
+            const blob = await response.blob();
+    
+        
+                const _storageRef = storageRef(storage, "Profile/" + user_uid);
+                const uploadTask = uploadBytesResumable(_storageRef, blob);
+    
+                setTransferred(0);
+    
+                uploadTask.on(
+                    "state_changed",
+                    (snapshot) => {
+                        let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                        console.log("Progreso: " + progress + "%");
+                        // setTransferred(progress);
+                    },
+                    (error) => {
+                        console.log("Error al subir la imagen: " + error.toString());
+                    }
+                );
+            };
 
 
     return (

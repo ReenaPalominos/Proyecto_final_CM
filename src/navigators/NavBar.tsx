@@ -5,6 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+import Home from '../views/homeView';
 import Vistas from '../views/vistasView';
 import Publicaciones from '../views/publicacionesView';
 import Detalle from '../views/detalleView';
@@ -27,6 +28,7 @@ type Param = {
 };
 
 export type StackParamList = {
+    Inicio: undefined;
     /* Vista Inicial */
     Login: undefined;
     Create: undefined;

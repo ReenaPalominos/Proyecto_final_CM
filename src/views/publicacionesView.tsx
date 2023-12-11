@@ -15,7 +15,6 @@ import Loading from "../components/Loading";
 
 type PublicacionesProps = NativeStackScreenProps<StackParamList, 'Publicaciones'>;
 
-
 export default function Publicaciones({ route, navigation }: PublicacionesProps) {
     const [posteos, setPosteos] = useState<Datos[]>([]);
     const [loading, setLoading] = useState(false);
@@ -48,56 +47,63 @@ export default function Publicaciones({ route, navigation }: PublicacionesProps)
                 }
 
                 setPosteos(newPosts);
-                setLoading(false);
             });
-    
+
+            setLoading(false);
             return () => off(dbRef);
         }, [])
     );
 
     return (
         <View style={styles.container}>
-            <ScrollView style={styles.scrollView}>
-                {posteos.map((posteos) => (
-                    <ItemComponent
-                        key={posteos.token.toString()}
-                        onPress={() => navigation.navigate('Detalle', {
-                                tipo: Id,
-                                token: posteos.token,
-                                title: posteos.title,
-                                description: posteos.description,
-                                timestamp: posteos.timestamp,
-                                file: posteos.file,
-                                userId: posteos.userId,
-                                latitud: posteos.latitud,
-                                longitud: posteos.longitud,
-                            })
-                        }
-                        text={posteos.title}
-                        description={posteos.description}
-                        date={posteos.timestamp}
-                        imageSource={posteos.file}
-                    />
-                ))}
-            </ScrollView>
-            { Id == "Eventos" ? (
-                <TouchableOpacity 
-                    style={styles.addButton}
-                    onPress={() => navigation.navigate('AddView', {
-                        Id: "Eventos",
-                    })}
-                >
-                    <Text style={styles.addButtonText}>+</Text>
-                </TouchableOpacity>
+            {loading ? (
+                <Loading />
             ) : (
-                <TouchableOpacity 
-                    style={styles.addButton}
-                    onPress={() => navigation.navigate('AddView', {
-                        Id: "Denuncias",
-                    })}
-                >
-                    <Text style={styles.addButtonText}>+</Text>
-                </TouchableOpacity>
+                <>
+                    <ScrollView style={styles.scrollView}>
+                        {posteos.map((posteos) => (
+                            <ItemComponent
+                                key={posteos.token.toString()}
+                                onPress={() => navigation.navigate('Detalle', {
+                                        tipo: Id,
+                                        token: posteos.token,
+                                        title: posteos.title,
+                                        description: posteos.description,
+                                        timestamp: posteos.timestamp,
+                                        file: posteos.file,
+                                        userId: posteos.userId,
+                                        latitud: posteos.latitud,
+                                        longitud: posteos.longitud,
+                                    })
+                                }
+                                text={posteos.title}
+                                description={posteos.description}
+                                date={posteos.timestamp}
+                                imageSource={posteos.file}
+                            />
+                        ))}
+                    </ScrollView>
+
+                    { Id == "Eventos" ? (
+                        <TouchableOpacity 
+                            style={styles.addButton}
+                            onPress={() => navigation.navigate('AddView', {
+                                Id: "Eventos",
+                            })}
+                        >
+                            <Text style={styles.addButtonText}>+</Text>
+                        </TouchableOpacity>
+                    ) : (
+                        <TouchableOpacity 
+                            style={styles.addButton}
+                            onPress={() => navigation.navigate('AddView', {
+                                Id: "Denuncias",
+                            })}
+                        >
+                            <Text style={styles.addButtonText}>+</Text>
+                        </TouchableOpacity>
+                    )}
+                </>
             )}
         </View>
     );

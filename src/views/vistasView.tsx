@@ -1,7 +1,8 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { View, Image, Text, Pressable, StyleSheet, Dimensions } from 'react-native';
+import { View, Image, Text, Pressable, StyleSheet, Dimensions, Alert } from 'react-native';
+
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { StackParamList } from '../navigators/NavBar';
+import MyTabs, { StackParamList } from '../navigators/NavBar';
 import { Ionicons } from '@expo/vector-icons'; // Importa los íconos desde @expo/vector-icons
 
 import { appFirebase } from '../services/firebaseConfig';
@@ -10,9 +11,9 @@ import { getAuth } from 'firebase/auth';
 import { getDatabase, ref as databaseRef, onValue, off, set } from "firebase/database";
 import { ref as storageRef, getStorage, getDownloadURL } from 'firebase/storage';
 
+import Home from "./homeView";
 import Loading from "../components/Loading";
 import Error from "../components/Error";
-import { useFocusEffect } from "@react-navigation/native";
 
 const auth = getAuth(appFirebase);
 
@@ -37,18 +38,19 @@ export default function Vistas({ navigation }: Props) {
     };
     
 
-    const logOut = () => {
-        auth.signOut().then(() => {
-            // Sign-out successful.
+    const logOut = async () => {
+        Alert.alert('En Mantención ❌', 'Lo sentimos, esta función se encuentra en mantención');
+        console.log('Imposible Cerrar Sesión...');
+        
+        return;
+        try {
+            await auth.signOut();
+            console.log('Usuario Deslogueado');
+            Alert.alert('Cerrando Sesión ✅');
             navigation.navigate('Login');
-        }).catch((error) => {
-            // An error happened.
-            <Error />
-        });
-    };
-
-    const handleFileUpdate = (newFile: string) => {
-        setFile(newFile);
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     const ButtonWithIcon = ({ onPress, text, iconName }: { onPress: () => void; text: string; iconName: string }) => (

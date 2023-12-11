@@ -33,7 +33,10 @@ export const DiscardComponent = ({ navigation, tipo, token }: DiscardComponentPr
         });
         
         Alert.alert(`${tipo} descartada correctamente`);
-        navigation.navigate("Publicaciones");
+        
+        navigation.navigate("Publicaciones", {
+            Id: tipo,
+        });
     };
 
     return (

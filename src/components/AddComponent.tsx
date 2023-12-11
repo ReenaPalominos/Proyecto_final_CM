@@ -19,15 +19,11 @@ import { useNavigation } from '@react-navigation/native';
 import { DiscardComponent } from "./DiscardComponent";
 
 interface AddComponentProps {
+    navigation: any;
     tipo: string;
 }
-type Props = {
-    navigation: NativeStackNavigationProp<StackParamList>;
-};
 
-export const AddComponent: React.FC<AddComponentProps & Props> = ({ tipo }) => {
-    const navigation = useNavigation();
-
+export const AddComponent: React.FC<AddComponentProps> = ({ navigation, tipo }) => {
     const [image, setImage] = useState<string>("");
     const [imageToken, setImageToken] = useState<string | number[]>("");
 
@@ -53,7 +49,9 @@ export const AddComponent: React.FC<AddComponentProps & Props> = ({ tipo }) => {
     }
 
     const backPosts = () => {
-        navigation.navigate("Publicaciones");
+        navigation.navigate("Publicaciones", {
+            Id: tipo,
+        });
     };
 
     return (

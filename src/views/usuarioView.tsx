@@ -14,7 +14,11 @@ import { GaleryComponent } from '../components/GaleryComponent';
 import Loading from "../components/Loading";
 import Error from "../components/Error";
 
-export default function Usuario() {
+type Props = {
+    navigation: NativeStackNavigationProp<StackParamList>;
+};
+
+export default function Usuario({ navigation }: Props) {
     const [isPressed, setIsPressed] = useState(false);
 
     const [email, setEmail] = useState('');
@@ -25,8 +29,6 @@ export default function Usuario() {
     const [error, setError] = useState(false);
 
     const userID = auth.currentUser;
-
-    const navigation = useNavigation();
 
     useEffect(() => {
         setEmail(userID?.email || 'No hay ningún usuario autenticado');

@@ -4,7 +4,12 @@ import { SafeAreaView, StyleSheet } from "react-native";
 /* Components */
 import { AddComponent } from "../components/AddComponent";
 
-export default function AddView({ route, navigation }) {
+interface AddViewProps {
+    route: any;
+    navigation: any;
+}
+
+export default function AddView ({ route, navigation }: AddViewProps) {
     const { Id } = route.params;
 
     return (

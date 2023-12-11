@@ -50,7 +50,10 @@ export const DeleteComponent = ({ navigation, tipo, token }: DeleteComponentProp
         });
         
         Alert.alert(`${tipo} eliminado correctamente`);
-        navigation.navigate("Publicaciones");
+        
+        navigation.navigate("Publicaciones", {
+            Id: tipo,
+        });
     };
 
     return (

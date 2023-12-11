@@ -1,10 +1,13 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Image, StyleSheet } from 'react-native';
 
 const Loading = () => {
     return (
         <View style={styles.container}>
-            <Text style={styles.text}>Loading...</Text>
+            <Image
+                source={require('../../assets/Logo UTEM.gif')} // Asegúrate de proporcionar la ruta correcta
+                style={styles.gif}
+            />
         </View>
     );
 };
@@ -15,9 +18,9 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    text: { 
-        fontSize: 36,
-        fontWeight: 'bold',
+    gif: {
+        width: 100, // Ajusta el ancho y alto según sea necesario
+        height: 100,
     },
 });
 

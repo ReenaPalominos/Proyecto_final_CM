@@ -23,6 +23,9 @@ import { ref as storageRef, uploadBytesResumable, getDownloadURL } from 'firebas
 
 import uuid from 'react-native-uuid';
 
+import Loading from "../components/Loading";
+import Error from "../components/Error";
+
 interface IUploadComponentProps {
     onUploadUpdate: (image: string, token: string | number[], fileUpload: boolean, file: unknown) => void;
 
@@ -50,6 +53,9 @@ export default function Usuario() {
     const [transferred, setTransferred] = useState(0);
     const [pressed, setPressed] = useState(false);
 
+    const [loading, setLoading] = useState(false);
+    const [error, setError]  = useState(false);
+
     const imageSelected = image;
     const _token = uuid.v4();
 
@@ -74,7 +80,7 @@ export default function Usuario() {
     }, []);
 
     const handleSubmit = ({ navigation }: Props) => {
-
+        setLoading(true);
         console.log(userID);
         const user_uid = userID?.uid;
         console.log("UID: " + user_uid)
@@ -96,14 +102,17 @@ export default function Usuario() {
             })
             .catch((error) => {
                 console.log("Error al enviar el formulario: " + error);
+                setError(true);
             });
 
         setUsername("");
 
         navigation.navigate('Usuario');
+        setLoading(false);
     };
 
     const uploadImage = async() => {
+        setLoading(true);
         const response = await fetch(image);
         const blob = await response.blob();
 
@@ -125,6 +134,7 @@ export default function Usuario() {
                 (error) => {
                     console.log("Error al subir la imagen: " + error.toString());
                     reject(error);
+                    setError(true);
                 },
                 () => {
                     getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
@@ -133,11 +143,18 @@ export default function Usuario() {
                     });
                 },
             );
+            setLoading(false);
         });
     };
 
     return (
         <SafeAreaView style={styles.container}>
+            {loading ? (
+        <Loading />
+      ) : error ? (
+        <Error />
+      ) : (
+            <View>
             <Text style={styles.titleContainer}>
                 Formulario de Perfil
             </Text>
@@ -185,6 +202,8 @@ export default function Usuario() {
             >
                 <Text style={styles.buttonText}>Enviar!</Text>
             </TouchableOpacity>
+            </View>
+        )}
         </SafeAreaView>
     );
 }

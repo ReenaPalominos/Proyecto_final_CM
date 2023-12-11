@@ -4,6 +4,11 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+<<<<<<< HEAD
+=======
+import {Datos} from '../interfaces/datos.interface';
+
+>>>>>>> d9baa009b0d7fcbdbaad0dc6d7786599baedbe1b
 import Vistas from '../views/vistasView';
 import Publicaciones from '../views/publicacionesView';
 import Detalle from '../views/detalleView';
@@ -30,6 +35,16 @@ export type StackParamList = {
     Create: undefined;
     /* Home Screen */
     Vistas: undefined;
+<<<<<<< HEAD
+=======
+    Denuncias: undefined;
+    Eventos: undefined;
+    Usuario: undefined;
+    DetallesDenuncia: Datos;
+    AddDenuncia: undefined;
+    DetallesEventos: Datos;
+    AddEvento: undefined;
+>>>>>>> d9baa009b0d7fcbdbaad0dc6d7786599baedbe1b
     Mapa: undefined;
     Usuario: undefined;
     AboutUs: undefined;

@@ -1,4 +1,5 @@
 import { Camera, CameraType, FlashMode } from "expo-camera"
+import * as MediaLibrary from 'expo-media-library';
 import React from "react";
 import { useEffect, useRef, useState } from "react"
 import { View,StyleSheet, Button, TouchableOpacity, Text, Image} from "react-native";
@@ -20,6 +21,7 @@ export const CamComponent= ()=>{
     const [Type, setType] = useState(CameraType.back);
     const [Photo, setPhoto]=useState<any>(undefined);
     const [HasCameraPermission, setHasCameraPermission]= useState(false);
+    const [HasMediaLibraryPermission,setHasMediaLibraryPermission]= useState(false);
     const [Zoom, setZoom]= useState(0);
     const [Flash, setFlash]=useState(FlashMode.off);
     
@@ -41,19 +43,21 @@ export const CamComponent= ()=>{
         setFlash(current=>(current===FlashMode.off ? FlashMode.torch : FlashMode.off))
     }
     
-    const getPermission = async()=>{
+    const getPermissions = async()=>{
         const CameraPermission = await Camera.requestCameraPermissionsAsync();
-
+        const MediaLibraryPermission = await MediaLibrary.requestPermissionsAsync();
         setHasCameraPermission(CameraPermission.status=== 'granted');
+        setHasMediaLibraryPermission(MediaLibraryPermission.status==='granted');
     }
 
     const DiscardPhoto=() =>{
         setPhoto(undefined);
     }
 
-    const UpLoaPhoto=() =>{
-
+    const UpLoadPhoto=() =>{
+        MediaLibrary.saveToLibraryAsync(Photo.uri).then(()=>{     
         setPhoto(undefined);
+        })
     }
 
     const handlerZoom = (type:ZoomTypes) =>{
@@ -70,18 +74,18 @@ export const CamComponent= ()=>{
     }
 
     useEffect(()=>{
-        getPermission();
+        getPermissions();
     },[])
 
-    if (HasCameraPermission === undefined ){
+    if (HasCameraPermission === undefined || HasMediaLibraryPermission=== undefined){
         return <View></View>;
     }
 
-    if (!HasCameraPermission){
+    if (!HasCameraPermission ||!HasMediaLibraryPermission){
         return(
             <View style={styles.container}>
-                <Text style={styles.text}>We need your permission to show the camera</Text>
-                <Button onPress={getPermission} title="grant permission" />
+                <Text style={styles.text}>Es necesario que nos otorgue el permiso de usar su cámara y guardar fotografías en su galería</Text>
+                <Button onPress={getPermissions} title="Dar permiso de uso de cámara y galería" />
             </View>
         );
     }
@@ -94,7 +98,7 @@ export const CamComponent= ()=>{
                         <Ionicons name="trash" size={24} color="white" />
                         <Text style={styles.text}>Borrar</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.button} onPress={UpLoaPhoto}>
+                    <TouchableOpacity style={styles.button} onPress={UpLoadPhoto}>
                         <Ionicons name="save" size={24} color="white" />
                         <Text style={styles.text}>Guardar</Text>
                     </TouchableOpacity>

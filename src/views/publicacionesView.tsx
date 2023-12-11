@@ -60,9 +60,6 @@ export default function Publicaciones({ route, navigation }: PublicacionesProps)
 
     return (
         <View style={styles.container}>
-             {loading ? (
-        <Loading />) : (
-            <View>
             <ScrollView style={styles.scrollView}>
                 {posteos.map((posteos) => (
                     <ItemComponent
@@ -104,8 +101,6 @@ export default function Publicaciones({ route, navigation }: PublicacionesProps)
                     <Text style={styles.addButtonText}>+</Text>
                 </TouchableOpacity>
             )}
-            </View>
-        )}
         </View>
     );
 };

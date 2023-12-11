@@ -1,135 +1,94 @@
 import React, { useState, useEffect } from 'react';
-import {
-    Image,
-    SafeAreaView,
-    StyleSheet,
-    Text,
-    View,
-    TouchableOpacity,
-    Alert,
-    TextInput
-} from "react-native";
-
-import { auth } from "../services/firebaseConfig";
+import { Image, SafeAreaView, StyleSheet, Text, View, TouchableOpacity, Alert, TextInput } from "react-native";
 
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { StackParamList } from '../navigators/NavBar';
 import { useNavigation } from '@react-navigation/native';
 
-import { getDatabase, ref as databaseRef, set } from "firebase/database";
-import { GaleryComponent } from '../components/GaleryComponent';
-import { storage } from "../services/firebaseConfig";
 import { ref as storageRef, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
+import { getDatabase, ref as databaseRef, set } from "firebase/database";
+import { storage } from "../services/firebaseConfig";
+import { auth } from "../services/firebaseConfig";
 
-import uuid from 'react-native-uuid';
-
+import { GaleryComponent } from '../components/GaleryComponent';
 import Loading from "../components/Loading";
 import Error from "../components/Error";
 
-interface IUploadComponentProps {
-    onUploadUpdate: (image: string, token: string | number[], fileUpload: boolean, file: unknown) => void;
-
-    image: string;
-}
-
-type Props = {
-    navigation: NativeStackNavigationProp<StackParamList>;
-}
-
 export default function Usuario() {
-    const [email, setEmail] = useState(''); // Correo electrónico
-    const [username, setUsername] = useState(''); // Nombre de usuario
     const [isPressed, setIsPressed] = useState(false);
-    
-    
-    
-    const [file, setFile] = useState<unknown>(""); // Foto de perfil
+
+    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
     const [image, setImage] = useState<string>("");
-    const [imageToken, setImageToken] = useState<string | number[]>("");
-    const [fileUpload, setFileUpload] = useState(false);
-
-
-    const [uploading, setUploading] = useState(false);
-    const [transferred, setTransferred] = useState(0);
-    const [pressed, setPressed] = useState(false);
 
     const [loading, setLoading] = useState(false);
-    const [error, setError]  = useState(false);
+    const [error, setError] = useState(false);
 
-    const imageSelected = image;
-    const _token = uuid.v4();
+    const userID = auth.currentUser;
+
+    const navigation = useNavigation();
+
+    useEffect(() => {
+        setEmail(userID?.email || 'No hay ningún usuario autenticado');
+    }, []);
 
     const handleImage = (imageUrl: string) => {
         setImage(imageUrl);
     };
 
-    const handleUpload = (image: string, imageToken: string | number[], fileUpload: boolean, file: unknown) => {
-        console.log(" ImageToken: " + imageToken + " FileUpload: " + fileUpload + " File: " + file);
-        
-        setImage(image);
-        setImageToken(imageToken);
-        setFileUpload(fileUpload);
-        setFile(file);
-    };
-
-    const navigation = useNavigation<NativeStackNavigationProp<StackParamList>>();
-
-    const userID = auth.currentUser;
-    useEffect(() => {
-        setEmail(userID?.email || 'No hay ningún usuario autenticado');
-    }, []);
-
-    const handleSubmit = ({ navigation }: Props) => {
+    const UploadProfile = async (response: unknown) => {
         setLoading(true);
-        console.log(userID);
         const user_uid = userID?.uid;
-        console.log("UID: " + user_uid)
-
+    
         const formData = {
             user_uid,
             email,
             username,
         };
-
+    
         const db = getDatabase();
-
+    
         const newFormRef = databaseRef(db, "Profile/" + user_uid);
+    
+        try {
+            await set(newFormRef, formData);
+    
+            console.log("Perfil actualizado con éxito");
+            Alert.alert("Perfil actualizado con éxito");
+    
+            setUsername("");
+            setImage("");
+            setEmail("");
+            setLoading(false);
+    
+            navigation.navigate('Vistas');
+    
+            // Devuelve la URL de la imagen (puedes personalizar esto según tus necesidades)
+            return response;
+        } catch (error) {
+            console.log("Error al actualizar el perfil: " + error);
+            setError(true);
+            setLoading(false);
+            return null; // Retorna null en caso de error
+        }
+    };    
 
-        set(newFormRef, formData)
-            .then(() => {
-                console.log("Formulario enviado con éxito");
-                Alert.alert("Formulario enviado con éxito");
-            })
-            .catch((error) => {
-                console.log("Error al enviar el formulario: " + error);
-                setError(true);
-            });
-
-        setUsername("");
-
-        navigation.navigate('Usuario');
-        setLoading(false);
-    };
-
-    const uploadImage = async() => {
-        setLoading(true);
+    const uploadImage = async () => {
         const response = await fetch(image);
         const blob = await response.blob();
 
         return new Promise((resolve, reject) => {
-            
+
             const user_uid = userID?.uid;
             const _storageRef = storageRef(storage, "Profile/" + user_uid);
             const uploadTask = uploadBytesResumable(_storageRef, blob);
 
-            setTransferred(0);
 
             uploadTask.on(
                 "state_changed",
                 (snapshot) => {
                     let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
                     console.log("Progreso: " + progress + "%");
-                    setTransferred(progress);
                 },
                 (error) => {
                     console.log("Error al subir la imagen: " + error.toString());
@@ -143,67 +102,61 @@ export default function Usuario() {
                     });
                 },
             );
-            setLoading(false);
         });
     };
 
     return (
         <SafeAreaView style={styles.container}>
             {loading ? (
-        <Loading />
-      ) : error ? (
-        <Error />
-      ) : (
-            <View>
-            <Text style={styles.titleContainer}>
-                Formulario de Perfil
-            </Text>
-            <TextInput
-                style={styles.input}
-                value={email}
-                editable={false}
-            />
-            <TextInput
-                style={styles.input}
-                onChangeText={setUsername}
-                value={username}
-                placeholder="Nombre de usuario"
-            />
-            <View>
-                <GaleryComponent
+                <Loading />
+            ) : error ? (
+                <Error />
+            ) : (
+                <View style={styles.formContainer}>
+                    <Text style={styles.titleContainer}>
+                        Formulario de Perfil
+                    </Text>
+
+                    <TextInput
+                        style={styles.input}
+                        value={email}
+                        editable={false}
+                    />
+                    <TextInput
+                        style={styles.input}
+                        onChangeText={setUsername}
+                        value={username}
+                        placeholder="Nombre de usuario"
+                    />
+
+                    <GaleryComponent
                         onImageSelected={handleImage}
                     />
-                <Text style={styles.titleContainer}>Subir imagen</Text>
-                <Text style={styles.textContainer}>Selecciona una imagen de tu galería.</Text>
-                {imageSelected !== "" ? (
-                <Image source={{ uri: imageSelected }} style={styles.imageBox} />
-                ) : ""}
-                
-            </View>
 
-            <TouchableOpacity
-                style={isPressed ? styles.buttonPressed : styles.button}
-                onPressIn={() => setIsPressed(true)}
-                onPressOut={() => setIsPressed(false)}
-                onPress={ async () => {
-                    setPressed(true);
-                    setUploading(true);
-                    try {
-                        const response = await uploadImage();
-                        Alert.alert('Foto subida con éxito!');
-                        handleUpload("", _token, true, response);
-                    } catch (error) {
-                        console.log("Error al subir la imagen: " + error);
-                    }
-                    setUploading(false);
-                    setPressed(false);
-                    handleSubmit({ navigation })
-                }}
-            >
-                <Text style={styles.buttonText}>Enviar!</Text>
-            </TouchableOpacity>
-            </View>
-        )}
+                    
+                    {image !== "" ? (
+                        <Image source={{ uri: image }} style={styles.imageBox} />
+                    ) : (
+                        <View>
+                            <Text style={styles.titleContainer}>Subir imagen</Text>
+                            <Text style={styles.textContainer}>Selecciona una imagen de tu galería.</Text>
+                        </View>
+                    )}
+
+                    <TouchableOpacity
+                        style={isPressed ? styles.buttonPressed : styles.button}
+                        onPressIn={() => setIsPressed(true)}
+                        onPressOut={() => setIsPressed(false)}
+                        onPress={async () => {
+                            const response = await uploadImage();
+                            
+                            UploadProfile(response);
+                        }}
+                    >
+                        <Text style={styles.buttonText}>Enviar!</Text>
+                    </TouchableOpacity>
+                </View>
+            )}
         </SafeAreaView>
     );
 }
@@ -211,6 +164,15 @@ export default function Usuario() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+    },
+    formContainer: {
+        flex: 1,
+        
+        borderColor: "black",
+        borderWidth: 1,
+        borderRadius: 16,
+        padding: 20,
+        margin: 10,
     },
     titleContainer: {
         fontSize: 24,
@@ -233,54 +195,32 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         padding: 10,
     },
-    inputDescription: {
-        width: '100%',
-        height: 100,
-
-        textAlign: "left",
-
-        borderColor: 'gray',
-        borderWidth: 1,
-        marginBottom: 20,
-        padding: 10,
-    },
-    inputLatitud: {
-        width: '45%',
-        height: 40,
-
-        textAlign: "center",
-        borderColor: 'gray',
-        borderWidth: 1,
-
-        padding: 10,
-    },
-    inputLongitud: {
-        width: '45%',
-        height: 40,
-
-        textAlign: "center",
-        borderColor: 'gray',
-        borderWidth: 1,
-
-        marginLeft: 10,
-        padding: 10,
-    },
     imageBox: {
-        width: '100%',
-        height: 150,
+        width: 300,
+        height: 300,
+
+        alignSelf: 'center',
 
         marginTop: 20,
         marginBottom: 20,
+
+        borderColor: 'gray',
+        borderWidth: 1,
+        borderRadius: 200,
     },
     button: {
-        width: '100%',
+        width: '50%',
+        top: '5%',
+        left: '25%',
         backgroundColor: '#007BFF',
         padding: 10,
         borderRadius: 5,
         alignItems: 'center',
     },
     buttonPressed: {
-        width: '100%',
+        width: '50%',
+        top: '5%',
+        left: '25%',
         backgroundColor: '#0056b3',
         padding: 10,
         borderRadius: 5,
@@ -289,41 +229,5 @@ const styles = StyleSheet.create({
     buttonText: {
         color: '#FFF',
         fontSize: 16,
-    },
-    progressBarContainer: {
-        marginTop: 20
-    },
-    pressableButton: {
-        borderRadius: 5,
-        width: 150,
-        height: 50,
-        backgroundColor: '#f53b42',
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginTop: 20
-    },
-    pressButton: {
-        borderRadius: 5,
-        width: 150,
-        height: 50,
-        backgroundColor: '#ffb6b9',
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginTop: 20
-    },
-    uploadButton: {
-        borderRadius: 5,
-        width: 150,
-        height: 50,
-        backgroundColor: '#ffb6b9',
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginTop: 20
-    },
-   
-    imageContainer: {
-        marginTop: 30,
-        marginBottom: 50,
-        alignItems: 'center'
     },
 });

@@ -46,9 +46,11 @@ export const AddComponent: React.FC<AddComponentProps & Props> = ({ tipo }) => {
         setFileUpload(fileUpload);
         setFile(file);
     };
+
     const handleCamera = () => {
         navigation.navigate("Cam");
     } 
+    
     return (
         <SafeAreaView style={styles.container}>
             {fileUpload ? (

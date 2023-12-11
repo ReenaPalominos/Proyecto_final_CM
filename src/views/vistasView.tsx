@@ -13,6 +13,7 @@ import { getDatabase, ref as databaseRef, onValue, off } from "firebase/database
 import { ref as storageRef, getStorage, getDownloadURL } from 'firebase/storage';
 
 import Loading from "../components/Loading";
+import Error from "../components/Error";
 
 const auth = getAuth(appFirebase);
 const { width, height } = Dimensions.get('window');
@@ -28,7 +29,7 @@ export default function Vistas({ navigation }: Props) {
   const [file, setFile] = useState<string>("");
 
   const [loading, setLoading] = useState(false);
-
+  const [error, setError] = useState(false);
   const userID = auth.currentUser;
   const navigateToAboutUs = () => {
     navigation.navigate('AboutUs');
@@ -73,6 +74,7 @@ export default function Vistas({ navigation }: Props) {
           })
           .catch((error) => {
             console.log(error);
+            setError(true);
           });
 
         console.log("Datos: ", user_uid, email, username);
@@ -95,7 +97,10 @@ export default function Vistas({ navigation }: Props) {
 
     <View style={styles.container}>
       {loading ? (
-        <Loading />) : (
+        <Loading />
+      ) : error ? (
+        <Error />
+      ) : (
           <View style={styles.container}>
             <View style={styles.profileContainer}>
                 
@@ -121,8 +126,7 @@ export default function Vistas({ navigation }: Props) {
                 <Text style={styles.text}>?</Text>
               </Pressable>
           </View>
-        )
-      }
+        )}    
     </View>
 
   );

@@ -24,6 +24,7 @@ import { ref as storageRef, uploadBytesResumable, getDownloadURL } from 'firebas
 import uuid from 'react-native-uuid';
 
 import Loading from "../components/Loading";
+import Error from "../components/Error";
 
 interface IUploadComponentProps {
     onUploadUpdate: (image: string, token: string | number[], fileUpload: boolean, file: unknown) => void;
@@ -53,6 +54,7 @@ export default function Usuario() {
     const [pressed, setPressed] = useState(false);
 
     const [loading, setLoading] = useState(false);
+    const [error, setError]  = useState(false);
 
     const imageSelected = image;
     const _token = uuid.v4();
@@ -100,6 +102,7 @@ export default function Usuario() {
             })
             .catch((error) => {
                 console.log("Error al enviar el formulario: " + error);
+                setError(true);
             });
 
         setUsername("");
@@ -131,6 +134,7 @@ export default function Usuario() {
                 (error) => {
                     console.log("Error al subir la imagen: " + error.toString());
                     reject(error);
+                    setError(true);
                 },
                 () => {
                     getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
@@ -146,7 +150,10 @@ export default function Usuario() {
     return (
         <SafeAreaView style={styles.container}>
             {loading ? (
-        <Loading />) : (
+        <Loading />
+      ) : error ? (
+        <Error />
+      ) : (
             <View>
             <Text style={styles.titleContainer}>
                 Formulario de Perfil

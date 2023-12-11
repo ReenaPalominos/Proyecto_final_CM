@@ -1,36 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
-    Button,
-    Dimensions,
-    Image,
     SafeAreaView,
-    ScrollView,
-    StatusBar,
     StyleSheet,
     Text,
-    useColorScheme,
     View,
     TouchableOpacity,
-    Platform,
-    Alert,
-    TextInput
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-
-/* FireBase */
-import { db, storage } from "../services/firebaseConfig";
-import { ref, uploadBytesResumable, getStorage, getDownloadURL } from 'firebase/storage';
-
-/* Para la subida de imágenes. */
-import * as ImagePicker from "expo-image-picker";
-import * as Progress from 'react-native-progress';
-import uuid from 'react-native-uuid';
 
 /* Components */
 import { GaleryComponent } from "./GaleryComponent";
 import { UploadComponent } from "./UploadComponent";
 import { FormComponent } from "./FormComponent";
-import { set } from "firebase/database";
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { StackParamList } from '../navigators/NavBar';
 
@@ -45,7 +26,7 @@ type Props = {
   
 export const AddComponent: React.FC<AddComponentProps & Props> = ({ tipo}) => {
     const navigation = useNavigation();
-    
+
     const [image, setImage] = useState<string>("");
     const [imageToken, setImageToken] = useState<string | number[]>("");
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Alert, TouchableOpacity, View, Image, Text, StyleSheet } from 'react-native';
 import { storage } from "../services/firebaseConfig";
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
@@ -15,7 +15,6 @@ interface IUploadComponentProps {
 export const UploadComponent = ({ tipo, image, onUploadUpdate }: IUploadComponentProps) => {   
     const [uploading, setUploading] = useState(false);
     const [transferred, setTransferred] = useState(0);
-    const [token, setToken] = useState<string | number[]>("");
     const [pressed, setPressed] = useState(false);
 
     const imageSelected = image;

@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { SafeAreaView, StyleSheet } from "react-native";
-
-import { Ionicons } from "@expo/vector-icons";
 
 /* Components */
 import { AddComponent } from "../components/AddComponent";

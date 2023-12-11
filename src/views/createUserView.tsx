@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Image, View, Text, Button, TextInput, Alert, Pressable, SafeAreaView } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { StackParamList } from '../navigators/NavBar';

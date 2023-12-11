@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, Image, StyleSheet } from 'react-native';
 import { MapComponent } from '../components/MapComponent';
 import { useRoute } from '@react-navigation/native';
 

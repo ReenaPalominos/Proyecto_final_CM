@@ -1,17 +1,12 @@
 import { GMapComponent } from "../components/GeneralMapComponent";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
     View,
-    ScrollView,
-    Image,
-    Text,
     StyleSheet,
-    TouchableOpacity,
 } from "react-native";
-import { useFocusEffect } from "@react-navigation/native";
 import Loading from "../components/Loading";
 
-import { getDatabase, ref, onValue, off, set } from "firebase/database";
+import { getDatabase, ref, onValue } from "firebase/database";
 
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { StackParamList } from "../navigators/NavBar";
@@ -34,7 +29,6 @@ export default function MapView({ navigation }: Props) {
 
         const db = getDatabase();
         const dbRef = ref(db, "Denuncias/");
-        /* const dbRef2 = ref(db, "Eventos/"); */
 
         setLocations([]);
     

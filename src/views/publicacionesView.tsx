@@ -37,17 +37,19 @@ export default function Publicaciones({ route, navigation }: PublicacionesProps)
     
             onValue(dbRef, (snapshot) => {
                 const data = snapshot.val();
+                const newPosts = [];
     
                 // Accediendo a los datos
                 for (let key in data) {
                     const { token, timestamp, title, description, file, userId, latitud, longitud} = data[key];
                     const newPost = { token, title, timestamp, description, file, userId, latitud, longitud};
-                    setPosteos((prevState) => [...prevState, newPost]);
+                    newPosts.push(newPost);
                     console.log(`Datos ${Id}: `, token, timestamp, title, description, file, userId);
                 }
+
+                setPosteos(newPosts);
             });
     
-            // No olvides detener la escucha de cambios cuando ya no sea necesario
             return () => off(dbRef);
         }, [])
     );

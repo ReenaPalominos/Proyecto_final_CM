@@ -38,8 +38,12 @@ export default function Vistas({ navigation }: Props) {
       </View>
       <View style={styles.subContainer}>
         <View style={styles.buttonRow}>
-          <ButtonWithIcon onPress={() => navigation.navigate('Denuncias')} text="Denuncias" iconName="ios-alert-circle-outline" />
-          <ButtonWithIcon onPress={() => navigation.navigate('Eventos')} text="Eventos" iconName="ios-calendar-outline" />
+          <ButtonWithIcon onPress={() => navigation.navigate('Publicaciones', {
+                    Id: "Denuncias",
+                })} text="Denuncias" iconName="ios-alert-circle-outline" />
+          <ButtonWithIcon onPress={() => navigation.navigate('Publicaciones', {
+                    Id: "Eventos",
+                })} text="Eventos" iconName="ios-calendar-outline" />
         </View>
         <View style={styles.buttonRow}>
           <ButtonWithIcon onPress={() => navigation.navigate('Mapa')} text="Mapa" iconName="ios-map-outline" />

@@ -84,11 +84,11 @@ export default function Usuario() {
     const handleSubmit = ({ navigation }: Props) => {
 
         console.log(userID);
-        const uid = userID?.uid;
-        console.log("UID: " + uid)
+        const user_uid = userID?.uid;
+        console.log("UID: " + user_uid)
 
         const formData = {
-            uid,
+            user_uid,
             email,
             username,
         };
@@ -97,7 +97,7 @@ export default function Usuario() {
 
         // console.log("Token: " + token);
 
-        const newFormRef = databaseRef(db, "Profile/" + uid);
+        const newFormRef = databaseRef(db, "Profile/" + user_uid);
 
         set(newFormRef, formData)
             .then(() => {
@@ -119,8 +119,8 @@ export default function Usuario() {
 
         return new Promise((resolve, reject) => {
             
-            const uid = userID?.uid;
-            const _storageRef = storageRef(storage, "Profile/" + uid);
+            const user_uid = userID?.uid;
+            const _storageRef = storageRef(storage, "Profile/" + user_uid);
             const uploadTask = uploadBytesResumable(_storageRef, blob);
 
             setTransferred(0);

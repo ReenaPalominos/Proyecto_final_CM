@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Image, View, Text, Button, TextInput, Alert, Pressable, SafeAreaView } from 'react-native';
+import { StyleSheet, Image, Text, TextInput, Alert, Pressable, SafeAreaView } from 'react-native';
 import { BlurView } from "expo-blur";
 
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';

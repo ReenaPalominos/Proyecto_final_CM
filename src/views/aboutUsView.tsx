@@ -1,6 +1,5 @@
 import React from "react";
-import { View,TextInput,Button,Text,StyleSheet, TouchableOpacity } from "react-native";
-import { useState} from "react";
+import { View,Text,StyleSheet } from "react-native";
 
 export default function AboutUs(){
 

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { View, Image, Text, Pressable, StyleSheet, Dimensions } from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { StackParamList } from '../navigators/NavBar';
@@ -10,7 +10,7 @@ import { getAuth } from 'firebase/auth';
 import { useFocusEffect } from "@react-navigation/native";
 
 import { getDatabase, ref as databaseRef, onValue, off } from "firebase/database";
-import { ref as storageRef, uploadBytesResumable, getStorage, getDownloadURL } from 'firebase/storage';
+import { ref as storageRef, getStorage, getDownloadURL } from 'firebase/storage';
 
 const auth = getAuth(appFirebase);
 const { width, height } = Dimensions.get('window');

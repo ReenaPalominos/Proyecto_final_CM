@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { StyleSheet, Image, View, Text, Button, TextInput, Alert, Pressable, SafeAreaView } from 'react-native';
+import { StyleSheet, Image, Text, TextInput, Alert, Pressable, SafeAreaView } from 'react-native';
 import { BlurView } from "expo-blur";
 
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -10,9 +10,8 @@ import { signIn } from '../services/auth';
 import {auth} from '../services/firebaseConfig';
 
 import { getDatabase, ref as databaseRef, set } from "firebase/database";
-import { GaleryComponent } from '../components/GaleryComponent';
 import { storage } from "../services/firebaseConfig";
-import { ref as storageRef, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
+import { ref as storageRef, uploadBytesResumable } from 'firebase/storage';
 
 interface IUploadComponentProps {
     onUploadUpdate: (image: string, token: string | number[], fileUpload: boolean, file: unknown) => void;
@@ -36,9 +35,6 @@ export const CreateUserComponent = ({ navigation } : Props) => {
 
     const [transferred, setTransferred] = useState(0);
 
-
-    const imageSelected = image;
-
     const registerApp = async () => { 
         setIsButtonPressed(true);
 
@@ -58,9 +54,6 @@ export const CreateUserComponent = ({ navigation } : Props) => {
 
     
     const createProfile = async (user_uid: string | undefined) => {
-        // console.log(userID);
-        // const uid = userID?.uid;
-        // console.log("UID: " + uid)
         const username = email;
 
         const formData = {
@@ -71,14 +64,11 @@ export const CreateUserComponent = ({ navigation } : Props) => {
 
         const db = getDatabase();
 
-        // console.log("Token: " + token);
-
         const newFormRef = databaseRef(db, "Profile/" + user_uid);
 
         set(newFormRef, formData)
             .then(() => {
                 console.log("Formulario enviado con éxito");
-                // Alert.alert("Formulario enviado con éxito");
             })
             .catch((error) => {
                 console.log("Error al enviar el formulario: " + error);
@@ -98,7 +88,6 @@ export const CreateUserComponent = ({ navigation } : Props) => {
                     (snapshot) => {
                         let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
                         console.log("Progreso: " + progress + "%");
-                        // setTransferred(progress);
                     },
                     (error) => {
                         console.log("Error al subir la imagen: " + error.toString());

@@ -1,17 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import {
-    Button,
-    Dimensions,
     Image,
     SafeAreaView,
-    ScrollView,
-    StatusBar,
     StyleSheet,
     Text,
-    useColorScheme,
     View,
     TouchableOpacity,
-    Platform,
     Alert,
     TextInput
 } from "react-native";
@@ -27,7 +21,6 @@ import { GaleryComponent } from '../components/GaleryComponent';
 import { storage } from "../services/firebaseConfig";
 import { ref as storageRef, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 
-import * as Progress from 'react-native-progress';
 import uuid from 'react-native-uuid';
 
 interface IUploadComponentProps {
@@ -55,7 +48,6 @@ export default function Usuario() {
 
     const [uploading, setUploading] = useState(false);
     const [transferred, setTransferred] = useState(0);
-    const [token, setToken] = useState<string | number[]>("");
     const [pressed, setPressed] = useState(false);
 
     const imageSelected = image;
@@ -94,8 +86,6 @@ export default function Usuario() {
         };
 
         const db = getDatabase();
-
-        // console.log("Token: " + token);
 
         const newFormRef = databaseRef(db, "Profile/" + user_uid);
 

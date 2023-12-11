@@ -1,21 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import {
-    Button,
-    Dimensions,
     Image,
     SafeAreaView,
-    ScrollView,
-    StatusBar,
     StyleSheet,
     Text,
-    useColorScheme,
     View,
     TouchableOpacity,
-    Platform,
     Alert,
     TextInput
 } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
 
 import { auth } from "../services/firebaseConfig";
 import { getDatabase, ref, set } from "firebase/database";
@@ -23,7 +16,6 @@ import { getDatabase, ref, set } from "firebase/database";
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { StackParamList } from '../navigators/NavBar';
 import { useNavigation } from '@react-navigation/native';
-import { setLogLevel } from 'firebase/app';
 import { getLocation } from '../services/location';
 
 

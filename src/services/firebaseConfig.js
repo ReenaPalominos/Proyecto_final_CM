@@ -11,7 +11,6 @@ const firebaseConfig = {
     storageBucket: "proyecto-final-cm.appspot.com",
     messagingSenderId: "413701259593",
     appId: "1:413701259593:web:6cc87ee29a07c3bce8da98",
-    // databaseURL: "",
 };
 
 // Initialize Firebase

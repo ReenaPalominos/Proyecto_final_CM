@@ -101,9 +101,13 @@ export const FormComponent = ({ tipo, token, file }: IGaleryComponentProps) => {
         setDescription("");
 
         if (tipo == "Eventos") {
-            navigation.navigate('Eventos');
+            navigation.navigate('Publicaciones', {
+                Id: "Eventos",
+            })
         } else {
-            navigation.navigate('Denuncias');
+            navigation.navigate('Publicaciones', {
+                Id: "Denuncias",
+            })
         }
     };
 

@@ -18,8 +18,8 @@ export const DiscardComponent = ({ navigation, tipo, token }: DiscardComponentPr
         const storage = getStorage();
 
         let storageRef;
-        if ( tipo == "Evento") {
-            storageRef = refStorage(storage, "Evento/" + token);
+        if ( tipo == "Eventos") {
+            storageRef = refStorage(storage, "Eventos/" + token);
         } else {
             storageRef = refStorage(storage, "Denuncias/" + token);
         }

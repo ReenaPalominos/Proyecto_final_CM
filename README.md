@@ -1,5 +1,4 @@
-# Proyecto Final de Computación Móvil
-
+# Proyecto Final de Computación Móvil - bioSafe
 Proyecto final para la asignatura de Computación Movil de la Universidad Tecnológica Metropolitana.
 
 ---
@@ -11,9 +10,25 @@ Proyecto final para la asignatura de Computación Movil de la Universidad Tecnol
 
 ---
 
+## bioSafe
+![bioSafe](./assets/hojas256.png)
+
+
 ## Descripción
 
-[DESCRIPCIÓN DEL PROYECTO]
+La aplicación consiste en una herramienta que permite a los usuarios publicar denuncias ciudadanas (reportes de calles sucias, situaciones particulares, etc), o pueden publicar eventos (Ferias ecologicas, eventos ecologicos, ollas comunes, etc).
+
+Esta aplicación es de facil utilización, permitiendo al usuario realizar una publicación de forma intuitiva.
+
+El proyecto esta compuesto de un autentificador de usuarios (Login y CreateUser), posteriormente nos encontramos con un Menu Inicial que permite utilizar las vistas de Denuncias, Eventos, Mapa y Perfil.
+
+Denuncias y Eventos son similares, se trata de publicaciones, donde en primer lugar se encuentra un resumen de todas, y luego al presionar una se puede ver con mayor detalle.
+
+Tambien es posible crear una nueva publicación y borrar las que pertenezcan a tu usuario.
+
+Para crear una nueva publicación es necesario un título, una descripción, una imagen y que estes ubicado en el lugar de la publicación, ya que, la aplicación utilizara tu ubicación como referencia de la misma.
+
+Es posible modificar tu nombre de usuario y tu imagen de perfil.
 
 
 ---
@@ -37,10 +52,19 @@ $ npm install @react-navigation/bottom-tabs
 ```
 Ya que se instalaron las dependencias, se procede a ejecutar la aplicación.
 
+Existen 2 alternativas para ejecutar la aplicación:
+
+### Alternativa 1
 ```
 $ npm start
 $ REACT_NATIVE_PACKAGER_HOSTNAME=[IP] npm start
 ```
+
+### Alternativa 2
+```
+$ npx expo start
+```
+
 Finalmente, tomamos la nuestro dispositivo móvil y escaneamos el código QR que nos aparece en la terminal en la aplicación de Expo Go.
 
 ---

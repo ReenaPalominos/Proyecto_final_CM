@@ -17,6 +17,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { StackParamList } from '../navigators/NavBar';
 import { useNavigation } from '@react-navigation/native';
 import { getLocation } from '../services/location';
+import Loading from './Loading';
 
 
 
@@ -31,6 +32,7 @@ interface IGaleryComponentProps {
 }
 
 export const FormComponent = ({ tipo, token, file }: IGaleryComponentProps) => {
+    const [loading, setLoading] = useState(false);
     const [userId, setUserId] = useState('');
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
@@ -39,25 +41,27 @@ export const FormComponent = ({ tipo, token, file }: IGaleryComponentProps) => {
     const [isPressed, setIsPressed] = useState(false);
 
     const userID = auth.currentUser;
-    
+
     const navigation = useNavigation<NativeStackNavigationProp<StackParamList>>();
-    
+
     useEffect(() => {
+        setLoading(true);
         setUserId(userID?.email || 'No hay ningún usuario autenticado');
         setubication();
+        setLoading(false);
     }, []);
 
-    const setubication=async() => {
-        let ubicacion= await getLocation();
-        if(ubicacion!==undefined){
-            let [lat,lon]=ubicacion;
+    const setubication = async () => {
+        let ubicacion = await getLocation();
+        if (ubicacion !== undefined) {
+            let [lat, lon] = ubicacion;
             setLatitud(lat);
             setLongitud(lon);
         }
     }
-    
-    const handleSubmit = ({ navigation }: Props) => {
 
+    const handleSubmit = ({ navigation }: Props) => {
+        setLoading(true);
         const date = new Date();
         const timestamp = date.getTime();
 
@@ -90,7 +94,11 @@ export const FormComponent = ({ tipo, token, file }: IGaleryComponentProps) => {
             });
 
         setUserId("");
+        setTitle("");
         setDescription("");
+        setLatitud("");
+        setLongitud("");
+        setLoading(false);
 
         if (tipo == "Eventos") {
             navigation.navigate('Publicaciones', {
@@ -106,82 +114,87 @@ export const FormComponent = ({ tipo, token, file }: IGaleryComponentProps) => {
 
     return (
         <SafeAreaView style={styles.container}>
-
-            <Text style={styles.titleContainer}>
-                Formulario de {tipo}
-            </Text>
-            <TextInput
-                style={styles.input}
-                onChangeText={setUserId}
-                value={userId}
-                editable={false}
-            />
-            <TextInput
-                style={styles.input}
-                onChangeText={setTitle}
-                value={title}
-                placeholder={
-                    tipo === 'Eventos' ?
-                        'Título del evento...' :
-                            'Título de la denuncia...'
-                }
-            />
-            <TextInput
-                style={styles.inputDescription}
-                onChangeText={setDescription}
-                value={description}
-                placeholder={
-                    tipo === 'Eventos' ?
-                        'Descripción del evento...' :
-                            'Descripción de la denuncia...'
-                }
-                multiline
-                numberOfLines={4}
-            />
-            <View style={{
-                    width: '100%',
-                    height: 90,
-                    borderColor: 'gray',
-                    borderWidth: 1,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                }}
-            >
-                <Text>Ubicación</Text>
-                <View style={{
-                    flexDirection: 'row',
-                    width: '100%',
-                    height: 60,
-                    alignItems: 'center',
-                    justifyContent: 'center',
+            {loading ? (
+                <Loading />
+            ) : (
+                <SafeAreaView>
+                    <Text style={styles.titleContainer}>
+                        Formulario de {tipo}
+                    </Text>
+                    <TextInput
+                        style={styles.input}
+                        onChangeText={setUserId}
+                        value={userId}
+                        editable={false}
+                    />
+                    <TextInput
+                        style={styles.input}
+                        onChangeText={setTitle}
+                        value={title}
+                        placeholder={
+                            tipo === 'Eventos' ?
+                                'Título del evento...' :
+                                'Título de la denuncia...'
+                        }
+                    />
+                    <TextInput
+                        style={styles.inputDescription}
+                        onChangeText={setDescription}
+                        value={description}
+                        placeholder={
+                            tipo === 'Eventos' ?
+                                'Descripción del evento...' :
+                                'Descripción de la denuncia...'
+                        }
+                        multiline
+                        numberOfLines={4}
+                    />
+                    <View style={{
+                        width: '100%',
+                        height: 90,
+                        borderColor: 'gray',
+                        borderWidth: 1,
+                        alignItems: 'center',
+                        justifyContent: 'center',
                     }}
-                >
-                    <TextInput
-                        style={styles.inputLatitud}
-                        value={latitud}
-                        editable={false}
-                    />
-                    <TextInput
-                        style={styles.inputLongitud}
-                        value={longitud}
-                        editable={false}
-                    />
-                </View>
-                
-            </View>
+                    >
+                        <Text>Ubicación</Text>
+                        <View style={{
+                            flexDirection: 'row',
+                            width: '100%',
+                            height: 60,
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                        }}
+                        >
+                            <TextInput
+                                style={styles.inputLatitud}
+                                value={latitud}
+                                editable={false}
+                            />
+                            <TextInput
+                                style={styles.inputLongitud}
+                                value={longitud}
+                                editable={false}
+                            />
+                        </View>
 
-            {file !== "" ? (
-                <Image source={{ uri: file as string }} style={styles.imageBox} />
-            ) : ""}
+                    </View>
 
-            <TouchableOpacity
-                style={isPressed ? styles.buttonPressed : styles.button}
-                onPressIn={() => setIsPressed(true)}
-                onPressOut={() => setIsPressed(false)}
-                onPress={() => handleSubmit({ navigation })}
-            >
-                <Text style={styles.buttonText}>Enviar!</Text>
-            </TouchableOpacity>
+                    {file !== "" ? (
+                        <Image source={{ uri: file as string }} style={styles.imageBox} />
+                    ) : ""}
+
+                    <TouchableOpacity
+                        style={isPressed ? styles.buttonPressed : styles.button}
+                        onPressIn={() => setIsPressed(true)}
+                        onPressOut={() => setIsPressed(false)}
+                        onPress={() => handleSubmit({ navigation })}
+                    >
+                        <Text style={styles.buttonText}>Enviar Formulario!</Text>
+                    </TouchableOpacity>
+                </SafeAreaView>
+            )}
         </SafeAreaView>
     );
 }
@@ -209,7 +222,7 @@ const styles = StyleSheet.create({
     inputDescription: {
         width: '100%',
         height: 100,
-        
+
         textAlign: "left",
 
         borderColor: 'gray',
@@ -220,17 +233,17 @@ const styles = StyleSheet.create({
     inputLatitud: {
         width: '45%',
         height: 40,
-        
+
         textAlign: "center",
         borderColor: 'gray',
         borderWidth: 1,
-        
+
         padding: 10,
     },
     inputLongitud: {
         width: '45%',
         height: 40,
-        
+
         textAlign: "center",
         borderColor: 'gray',
         borderWidth: 1,

@@ -25,10 +25,9 @@ export const MapComponent: React.FC<MapComponentProps> = ({ latitud, longitud })
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        width: '100%'
     },
     map: {
-        width: '100%',
-        height: '100%',
+        width: 'auto',
+        height: 300,
     },
 });

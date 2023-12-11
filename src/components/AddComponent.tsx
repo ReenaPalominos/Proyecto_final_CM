@@ -16,6 +16,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { StackParamList } from '../navigators/NavBar';
 
 import { useNavigation } from '@react-navigation/native';
+import { DiscardComponent } from "./DiscardComponent";
 
 interface AddComponentProps {
     tipo: string;
@@ -51,14 +52,26 @@ export const AddComponent: React.FC<AddComponentProps & Props> = ({ tipo }) => {
         navigation.navigate("Cam");
     }
 
+    const backPosts = () => {
+        navigation.navigate("Publicaciones");
+    };
+
     return (
         <SafeAreaView style={styles.container}>
             {fileUpload ? (
-                <FormComponent
-                    tipo={tipo}
-                    token={imageToken}
-                    file={file}
-                />
+                <>
+                    <FormComponent
+                        tipo={tipo}
+                        token={imageToken}
+                        file={file}
+                    />
+
+                    <DiscardComponent 
+                        navigation={navigation}
+                        tipo={tipo}
+                        token={imageToken}    
+                    />
+                </>
             ) : (
                 <>
                     <GaleryComponent
@@ -69,19 +82,20 @@ export const AddComponent: React.FC<AddComponentProps & Props> = ({ tipo }) => {
                         <Ionicons name="camera" size={24} color="white" />
                     </TouchableOpacity>
 
+                    <TouchableOpacity style={styles.goBack} onPress={backPosts} >
+                        <Ionicons name="arrow-back-outline" size={24} color="white" />
+                    </TouchableOpacity>
+
                     <Text style={styles.titleContainer}>Subir imagen</Text>
                     <Text style={styles.textContainer}>Selecciona una imagen de tu galería o captura una nueva.</Text>
 
-                    <View style={styles.imageContainer}>
                         <UploadComponent
                             tipo={tipo}
                             image={image}
                             onUploadUpdate={handleUpload}
                         />
-                    </View>
                 </>
             )}
-
         </SafeAreaView>
     );
 };
@@ -144,6 +158,17 @@ const styles = StyleSheet.create({
         position: "absolute",
         bottom: 30,
         right: 30,
+        width: 45,
+        height: 45,
+        backgroundColor: "black",
+        justifyContent: "center",
+        alignItems: "center",
+        borderRadius: 25,
+    },
+    goBack: {
+        position: "absolute",
+        bottom: 90,
+        left: 30,
         width: 45,
         height: 45,
         backgroundColor: "black",

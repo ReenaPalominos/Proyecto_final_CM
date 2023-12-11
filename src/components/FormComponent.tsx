@@ -253,7 +253,7 @@ const styles = StyleSheet.create({
     },
     imageBox: {
         width: '100%',
-        height: 150,
+        height: 300,
 
         marginTop: 20,
         marginBottom: 20,

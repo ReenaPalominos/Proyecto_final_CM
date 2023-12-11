@@ -42,7 +42,7 @@ export const LoginComponent = ({ navigation }: Props) => {
                 <TextInput style={styles.textInputContainer} placeholder="Ingresa tu email" onChangeText={(text) => setEmail(text)} />
                 <TextInput style={styles.textInputContainer} placeholder="Ingresa tu contraseña" onChangeText={(text) => setPassword(text)} secureTextEntry />
                 <Pressable style={isButtonPressed ? styles.pressedButton : styles.button} onPress={loginApp}>
-                    <Text style={isButtonPressed ? styles.pressedText : styles.text}>Inicar Sesión</Text>
+                    <Text style={isButtonPressed ? styles.pressedText : styles.text}>Iniciar Sesión</Text>
                 </Pressable>
             </BlurView>
         </SafeAreaView>

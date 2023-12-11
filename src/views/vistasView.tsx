@@ -63,7 +63,7 @@ export default function Vistas({ navigation }: Props) {
           email,
           username,
         };
-        setDatos(newDatos);
+        setDatos(newDatos);    
 
         setUser(datos.username);
         const storage = getStorage();

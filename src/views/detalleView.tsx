@@ -9,6 +9,8 @@ import { DeleteComponent } from '../components/DeleteComponent';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { StackParamList } from '../navigators/NavBar';
 
+import { auth } from "../services/firebaseConfig";
+
 type Props = {
     navigation: NativeStackNavigationProp<StackParamList>;
 }
@@ -25,6 +27,8 @@ export default function Detalle({ navigation }: Props) {
     const formattedDate = dateObject.toLocaleDateString("es-ES");
     const formattedTime = dateObject.toLocaleTimeString("es-ES");
 
+    const user = auth.currentUser;
+    const correo = user?.email;
 
     return (
         <View style={styles.container}>
@@ -47,8 +51,8 @@ export default function Detalle({ navigation }: Props) {
             <Text style={styles.footerText}>
                 Fecha: {formattedDate} {formattedTime} | Autor: {userId}
             </Text>
-
-            <DeleteComponent navigation={navigation} tipo={tipo} token={token} />
+            {correo == userId ? <DeleteComponent navigation={navigation} tipo={tipo} token={token} /> : null}
+            
         </View>
     );
 };

@@ -27,8 +27,8 @@ export const UploadComponent = ({ tipo, image, onUploadUpdate }: IUploadComponen
         return new Promise((resolve, reject) => {
             
             let storageRef;
-            ( tipo == "Evento" ? (
-                storageRef = ref(storage, "Evento/" + _token)
+            ( tipo == "Eventos" ? (
+                storageRef = ref(storage, "Eventos/" + _token)
             ) : (
                 storageRef = ref(storage, "Denuncias/" + _token)
             ))

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
     SafeAreaView,
     StyleSheet,
@@ -40,7 +40,7 @@ export const AddComponent: React.FC<AddComponentProps & Props> = ({ tipo }) => {
 
     const handleUpload = (image: string, imageToken: string | number[], fileUpload: boolean, file: unknown) => {
         console.log(" ImageToken: " + imageToken + " FileUpload: " + fileUpload + " File: " + file);
-        
+
         setImage(image);
         setImageToken(imageToken);
         setFileUpload(fileUpload);
@@ -49,8 +49,8 @@ export const AddComponent: React.FC<AddComponentProps & Props> = ({ tipo }) => {
 
     const handleCamera = () => {
         navigation.navigate("Cam");
-    } 
-    
+    }
+
     return (
         <SafeAreaView style={styles.container}>
             {fileUpload ? (
@@ -64,24 +64,24 @@ export const AddComponent: React.FC<AddComponentProps & Props> = ({ tipo }) => {
                     <GaleryComponent
                         onImageSelected={handleImage}
                     />
-                    
+
                     <TouchableOpacity style={styles.cameraPicker} onPress={handleCamera} >
                         <Ionicons name="camera" size={24} color="white" />
                     </TouchableOpacity>
-                    
+
                     <Text style={styles.titleContainer}>Subir imagen</Text>
                     <Text style={styles.textContainer}>Selecciona una imagen de tu galería o captura una nueva.</Text>
-                    
+
                     <View style={styles.imageContainer}>
                         <UploadComponent
-                                tipo={tipo}
-                                image={image}
-                                onUploadUpdate={handleUpload}
-                            />
+                            tipo={tipo}
+                            image={image}
+                            onUploadUpdate={handleUpload}
+                        />
                     </View>
                 </>
             )}
-            
+
         </SafeAreaView>
     );
 };
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
     titleContainer: {
         fontSize: 36,
         marginTop: 20,
-        marginBottom: 20, 
+        marginBottom: 20,
         textAlign: 'center'
     },
     textContainer: {
@@ -152,3 +152,7 @@ const styles = StyleSheet.create({
         borderRadius: 25,
     },
 });
+
+function showDialog(handleConfirm: () => void) {
+    throw new Error("Function not implemented.");
+}

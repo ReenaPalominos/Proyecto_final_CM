@@ -1,4 +1,5 @@
 import React from 'react';
+import {AntDesign} from "@expo/vector-icons";
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -48,12 +49,22 @@ function LoginUser() {
             <Tab.Screen 
             name="Login"
             component={Login}
-            options={{ headerShown: false }}
+            options={{ 
+                headerShown: false,
+                tabBarIcon:({color,size})=>(
+                    <AntDesign name='login' color={color} size={size}/>
+                )
+            }}
             />
             <Tab.Screen 
             name="Create"
             component={CreateUser}
-            options={{ headerShown: false }}
+            options={{ 
+                headerShown: false,
+                tabBarIcon:({color,size})=>(
+                    <AntDesign name='addusergroup' color={color} size={size}/>
+                )
+            }}
             />
         </Tab.Navigator> 
         );

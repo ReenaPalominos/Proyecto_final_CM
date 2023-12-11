@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from "react";
 import { View, Image, Text, Pressable, StyleSheet, Dimensions } from 'react-native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { StackParamList } from '../navigators/NavBar';
@@ -6,6 +6,11 @@ import { Ionicons } from '@expo/vector-icons'; // Importa los íconos desde @exp
 
 import { appFirebase } from '../services/firebaseConfig';
 import { getAuth } from 'firebase/auth';
+
+import { useFocusEffect } from "@react-navigation/native";
+
+import { getDatabase, ref as databaseRef, onValue, off } from "firebase/database";
+import { ref as storageRef, uploadBytesResumable, getStorage, getDownloadURL } from 'firebase/storage';
 
 const auth = getAuth(appFirebase);
 const { width, height } = Dimensions.get('window');
@@ -15,8 +20,13 @@ type Props = {
 };
 
 export default function Vistas({ navigation }: Props) {
-  const userID = auth.currentUser;
+  const [datos, setDatos] = useState({ user_uid: '', email: '', username: '' });
+  const [user, setUser] = useState<string | null>(); // Nombre de usuario
 
+  const [file, setFile] = useState<string>("");
+
+
+  const userID = auth.currentUser;
   const navigateToAboutUs = () => {
     navigation.navigate('AboutUs');
   };
@@ -28,14 +38,60 @@ export default function Vistas({ navigation }: Props) {
     </Pressable>
   );
 
+  useFocusEffect(
+    useCallback(() => {
+      console.log("entra aqui");
+      const db = getDatabase();
+      const dbRef = databaseRef(db, "Profile/" + userID?.uid);
+
+      onValue(dbRef, (snapshot) => {
+        const data = snapshot.val();
+
+        const {
+          user_uid,
+          email,
+          username,
+        } = data;
+        const newDatos = {
+          user_uid,
+          email,
+          username,
+        };
+        setDatos(newDatos);
+        
+        setUser(datos.username);
+        const storage = getStorage();
+        getDownloadURL(storageRef(storage, 'Profile/' + userID?.uid))
+          .then((url) => {
+            console.log(url);
+            setFile(url);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+        
+        console.log("Datos: ", user_uid, email, username);
+      }
+      );
+      if(datos != null){
+        
+      }
+      else{
+        setUser(userID?.email);
+      }
+      // No olvides detener la escucha de cambios cuando ya no sea necesario
+      return () => off(dbRef);
+    }, [])
+  );
+
   return (
     <View style={styles.container}>
-      <View style={styles.profileContainer}>
-        <Image source={require('../../assets/profilepic.png')} style={styles.userImage} />
-        <Text style={styles.text}>
-          {userID ? userID.email : 'No hay ningún usuario autenticado'}
-        </Text>
-      </View>
+     <View style={styles.profileContainer}>
+         
+         <Image source={{ uri: file }} style={styles.userImage} />
+
+         <Text style={styles.text}>{user}</Text>
+     </View>
       <View style={styles.subContainer}>
         <View style={styles.buttonRow}>
           <ButtonWithIcon onPress={() => navigation.navigate('Publicaciones', {

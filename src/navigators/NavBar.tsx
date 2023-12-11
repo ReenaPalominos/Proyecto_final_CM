@@ -85,7 +85,7 @@ function MyTabs() {
                 <Stack.Screen name="Cam" component={Cam} />
                 <Stack.Screen name="Publicaciones" component={Publicaciones} initialParams={{ Id: "" }} />
                 <Stack.Screen name="Detalle" component={Detalle} />
-                <Stack.Screen name="AddView" component={AddView} initialParams={{ Id: "" }} />
+                <Stack.Screen name="AddView" component={AddView} initialParams={{ Id: "" }} options={{ headerShown: false }} />
                 <Stack.Screen name="AboutUs" component={AboutUs} />
             </Stack.Navigator>
         </NavigationContainer>

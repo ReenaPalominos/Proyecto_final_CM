@@ -34,6 +34,8 @@ import { set } from "firebase/database";
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { StackParamList } from '../navigators/NavBar';
 
+import { useNavigation } from '@react-navigation/native';
+
 interface AddComponentProps {
     tipo: string;
 }
@@ -41,7 +43,9 @@ type Props = {
     navigation: NativeStackNavigationProp<StackParamList>;
   };
   
-export const AddComponent: React.FC<AddComponentProps> = ({ tipo },{navigation}:Props) => {
+export const AddComponent: React.FC<AddComponentProps & Props> = ({ tipo}) => {
+    const navigation = useNavigation();
+    
     const [image, setImage] = useState<string>("");
     const [imageToken, setImageToken] = useState<string | number[]>("");
 
@@ -61,8 +65,8 @@ export const AddComponent: React.FC<AddComponentProps> = ({ tipo },{navigation}:
         setFileUpload(fileUpload);
         setFile(file);
     };
-    const handleCamera = ()=>{
-        navigation.navigate("Cam");
+    const handleCamera = () => {
+        navigation.navigate('Cam');
     } 
     return (
         <SafeAreaView style={styles.container}>

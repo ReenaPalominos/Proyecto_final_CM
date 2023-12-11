@@ -8,7 +8,7 @@ type Props = {
     navigation: NativeStackNavigationProp<StackParamList>;
 };
 
-export default function Cam({ navigation }: Props){
+export default function Cam(){
     return(
         
         <View style={style.container}>

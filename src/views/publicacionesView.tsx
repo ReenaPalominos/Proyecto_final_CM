@@ -11,18 +11,21 @@ import { StackParamList } from '../navigators/NavBar';
 import ItemComponent from '../components/ItemComponent';
 import { Datos } from '../interfaces/datos.interface';
 
+import Loading from "../components/Loading";
+
 type PublicacionesProps = NativeStackScreenProps<StackParamList, 'Publicaciones'>;
 
 
 export default function Publicaciones({ route, navigation }: PublicacionesProps) {
     const [posteos, setPosteos] = useState<Datos[]>([]);
-
+    const [loading, setLoading] = useState(false);
     const { Id } = route.params;
 
     console.log(`Estamos en ${Id}`);
 
     useFocusEffect(
         useCallback(() => {
+            setLoading(true);
             const db = getDatabase();
 
             let dbRef: DatabaseReference;
@@ -48,6 +51,7 @@ export default function Publicaciones({ route, navigation }: PublicacionesProps)
                 }
 
                 setPosteos(newPosts);
+                setLoading(false);
             });
     
             return () => off(dbRef);
@@ -56,6 +60,9 @@ export default function Publicaciones({ route, navigation }: PublicacionesProps)
 
     return (
         <View style={styles.container}>
+             {loading ? (
+        <Loading />) : (
+            <View>
             <ScrollView style={styles.scrollView}>
                 {posteos.map((posteos) => (
                     <ItemComponent
@@ -97,6 +104,8 @@ export default function Publicaciones({ route, navigation }: PublicacionesProps)
                     <Text style={styles.addButtonText}>+</Text>
                 </TouchableOpacity>
             )}
+            </View>
+        )}
         </View>
     );
 };

@@ -32,17 +32,17 @@ export const GMapComponent : React.FC<IProps> = ( {location_array} ) => {
 
     const setubication = async () => {
         setLoading(true);
-        let ubicacion = await getLocation();
-        if (ubicacion !== undefined) {
-          let [lat, lon] = ubicacion;
-          const parsedLat = Number(lat);
-          const parsedLon = Number(lon);
-          setLatitud(parsedLat);
-          setLongitud(parsedLon);
-          console.log("Latitud: " + parsedLat + " Longitud: " + parsedLon);
-          console.log("ubicacion: " + ubicacion);
-        }
-        setLoading(false); // Al terminar la carga de ubicación, cambiar a false
+        let ubicacion = await getLocation().then(()=>{
+            if (ubicacion !== undefined) {
+                const parsedLat = Number(ubicacion[0]);
+                const parsedLon = Number(ubicacion[1]);
+                setLatitud(parsedLat);
+                setLongitud(parsedLon);
+                console.log("Latitud: " + parsedLat + " Longitud: " + parsedLon);
+                console.log("ubicacion: " + ubicacion);
+              }
+              setLoading(false); // Al terminar la carga de ubicación, cambiar a false
+        })
       };
     
       useEffect(() => {

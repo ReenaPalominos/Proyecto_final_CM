@@ -17,14 +17,14 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-import { auth } from "../../services/firebaseConfig";
+import { auth } from "../services/firebaseConfig";
 import { getDatabase, ref, set } from "firebase/database";
 
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { StackParamList } from '../../navigators/NavBar';
+import { StackParamList } from '../navigators/NavBar';
 import { useNavigation } from '@react-navigation/native';
 import { setLogLevel } from 'firebase/app';
-import { getLocation } from '../../services/location';
+import { getLocation } from '../services/location';
 
 
 
@@ -33,11 +33,12 @@ type Props = {
 }
 
 interface IGaleryComponentProps {
+    tipo: string;
     token: string | number[];
     file: string | unknown;
 }
 
-export const FormComponent = ({ token, file }: IGaleryComponentProps) => {
+export const FormComponent = ({ tipo, token, file }: IGaleryComponentProps) => {
     const [userId, setUserId] = useState('');
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
@@ -48,12 +49,12 @@ export const FormComponent = ({ token, file }: IGaleryComponentProps) => {
     const userID = auth.currentUser;
     
     const navigation = useNavigation<NativeStackNavigationProp<StackParamList>>();
-
+    
     useEffect(() => {
         setUserId(userID?.email || 'No hay ningún usuario autenticado');
         setubication();
     }, []);
-  
+
     const setubication=async() => {
         let ubicacion= await getLocation();
         if(ubicacion!==undefined){
@@ -62,8 +63,6 @@ export const FormComponent = ({ token, file }: IGaleryComponentProps) => {
             setLongitud(lon);
         }
     }
-    
-
     
     const handleSubmit = ({ navigation }: Props) => {
 
@@ -82,11 +81,13 @@ export const FormComponent = ({ token, file }: IGaleryComponentProps) => {
         };
 
         const db = getDatabase();
+        let newFormRef;
+        if (tipo == "Eventos") {
+            newFormRef = ref(db, "Eventos/" + token);
+        } else {
+            newFormRef = ref(db, "Denuncias/" + token);
+        }
 
-        console.log("Token: " + token);
-        
-        const newFormRef = ref(db, "Denuncias/" + token);
-        
         set(newFormRef, formData)
             .then(() => {
                 console.log("Formulario enviado con éxito");
@@ -99,14 +100,23 @@ export const FormComponent = ({ token, file }: IGaleryComponentProps) => {
         setUserId("");
         setDescription("");
 
-        navigation.navigate('Denuncias');
+        if (tipo == "Eventos") {
+            navigation.navigate('Publicaciones', {
+                Id: "Eventos",
+            })
+        } else {
+            navigation.navigate('Publicaciones', {
+                Id: "Denuncias",
+            })
+        }
     };
 
 
     return (
         <SafeAreaView style={styles.container}>
+
             <Text style={styles.titleContainer}>
-                Formulario de denuncia
+                Formulario de {tipo}
             </Text>
             <TextInput
                 style={styles.input}
@@ -118,13 +128,21 @@ export const FormComponent = ({ token, file }: IGaleryComponentProps) => {
                 style={styles.input}
                 onChangeText={setTitle}
                 value={title}
-                placeholder="Título de la denuncia..."
+                placeholder={
+                    tipo === 'Eventos' ?
+                        'Título del evento...' :
+                            'Título de la denuncia...'
+                }
             />
             <TextInput
                 style={styles.inputDescription}
                 onChangeText={setDescription}
                 value={description}
-                placeholder="Descripción de la denuncia..."
+                placeholder={
+                    tipo === 'Eventos' ?
+                        'Descripción del evento...' :
+                            'Descripción de la denuncia...'
+                }
                 multiline
                 numberOfLines={4}
             />

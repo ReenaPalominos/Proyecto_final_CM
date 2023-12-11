@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Image, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
-type EventoProps = {
+type ItemProps = {
     onPress: () => void;
     text: string;
     description: string;
@@ -16,7 +16,7 @@ const truncateDescription = (description: string, maxLength: number) => {
     return description;
 };
 
-const EventoItem = ({ onPress, text, description, date, imageSource }: EventoProps) => {
+const ItemComponent = ({ onPress, text, description, date, imageSource }: ItemProps) => {
     const truncatedDescription = truncateDescription(description, 25);
 
     const dateObject = new Date(date);
@@ -26,7 +26,7 @@ const EventoItem = ({ onPress, text, description, date, imageSource }: EventoPro
 
 
     return (
-        <TouchableOpacity style={styles.eventoContainer} onPress={onPress}>
+        <TouchableOpacity style={styles.denunciaContainer} onPress={onPress}>
             <Image source={{ uri: imageSource }} style={styles.image} resizeMode="cover" />
             <View style={styles.textContainer}>
                 <Text style={styles.titleText}>{text}</Text>
@@ -38,7 +38,7 @@ const EventoItem = ({ onPress, text, description, date, imageSource }: EventoPro
 };
 
 const styles = StyleSheet.create({
-  eventoContainer: {
+    denunciaContainer: {
         width: '95%',
         height: 120,
         marginVertical: 5,
@@ -76,4 +76,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default EventoItem;
+export default ItemComponent;

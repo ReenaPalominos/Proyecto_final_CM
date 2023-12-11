@@ -18,7 +18,7 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 
 /* FireBase */
-import { db, storage } from "../../services/firebaseConfig";
+import { db, storage } from "../services/firebaseConfig";
 import { ref, uploadBytesResumable, getStorage, getDownloadURL } from 'firebase/storage';
 
 /* Para la subida de imágenes. */
@@ -27,14 +27,16 @@ import * as Progress from 'react-native-progress';
 import uuid from 'react-native-uuid';
 
 /* Components */
-import { GaleryComponent } from "../GaleryComponent";
-import { UploadEventComponent } from "./UploadEventComponent";
-import { FormEventComponent } from "./FormEventComponent";
+import { GaleryComponent } from "./GaleryComponent";
+import { UploadComponent } from "./UploadComponent";
+import { FormComponent } from "./FormComponent";
 import { set } from "firebase/database";
 
+interface AddComponentProps {
+    tipo: string;
+}
 
-
-export const AddEventoComponent = () => {
+export const AddComponent: React.FC<AddComponentProps> = ({ tipo }) => {
     const [image, setImage] = useState<string>("");
     const [imageToken, setImageToken] = useState<string | number[]>("");
 
@@ -58,7 +60,8 @@ export const AddEventoComponent = () => {
     return (
         <SafeAreaView style={styles.container}>
             {fileUpload ? (
-                <FormEventComponent
+                <FormComponent
+                    tipo={tipo}
                     token={imageToken}
                     file={file}
                 />
@@ -76,7 +79,8 @@ export const AddEventoComponent = () => {
                     <Text style={styles.textContainer}>Selecciona una imagen de tu galería o captura una nueva.</Text>
                     
                     <View style={styles.imageContainer}>
-                        <UploadEventComponent
+                        <UploadComponent
+                                tipo={tipo}
                                 image={image}
                                 onUploadUpdate={handleUpload}
                             />

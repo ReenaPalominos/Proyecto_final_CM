@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Alert, TouchableOpacity, View, Image, Text, StyleSheet } from 'react-native';
-import { storage } from "../../services/firebaseConfig";
+import { storage } from "../services/firebaseConfig";
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 
 import * as Progress from 'react-native-progress';
@@ -8,11 +8,11 @@ import uuid from 'react-native-uuid';
 
 interface IUploadComponentProps {
     onUploadUpdate: (image: string, token: string | number[], fileUpload: boolean, file: unknown) => void;
-
+    tipo: string;
     image: string;
 }
 
-export const UploadComponent = ({ image, onUploadUpdate }: IUploadComponentProps) => {   
+export const UploadComponent = ({ tipo, image, onUploadUpdate }: IUploadComponentProps) => {   
     const [uploading, setUploading] = useState(false);
     const [transferred, setTransferred] = useState(0);
     const [token, setToken] = useState<string | number[]>("");
@@ -27,8 +27,13 @@ export const UploadComponent = ({ image, onUploadUpdate }: IUploadComponentProps
 
         return new Promise((resolve, reject) => {
             
-
-            const storageRef = ref(storage, "Denuncias/" + _token);
+            let storageRef;
+            ( tipo == "Evento" ? (
+                storageRef = ref(storage, "Evento/" + _token)
+            ) : (
+                storageRef = ref(storage, "Denuncias/" + _token)
+            ))
+            
             const uploadTask = uploadBytesResumable(storageRef, blob);
 
             setTransferred(0);

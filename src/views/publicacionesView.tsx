@@ -21,8 +21,6 @@ export default function Publicaciones({ route, navigation }: PublicacionesProps)
     const [loading, setLoading] = useState(false);
     const { Id } = route.params;
 
-    console.log(`Estamos en ${Id}`);
-
     useFocusEffect(
         useCallback(() => {
             setLoading(true);
@@ -47,7 +45,6 @@ export default function Publicaciones({ route, navigation }: PublicacionesProps)
                     const { tipo, token, timestamp, title, description, file, userId, latitud, longitud} = data[key];
                     const newPost = { tipo, token, title, timestamp, description, file, userId, latitud, longitud};
                     newPosts.push(newPost);
-                    console.log(`Datos ${Id}: `, token, timestamp, title, description, file, userId);
                 }
 
                 setPosteos(newPosts);

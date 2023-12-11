@@ -4,13 +4,21 @@ import { MapComponent } from '../components/MapComponent';
 import { useRoute } from '@react-navigation/native';
 
 import { Datos } from '../interfaces/datos.interface';
+import { DeleteComponent } from '../components/DeleteComponent';
 
-export default function Detalle() {
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { StackParamList } from '../navigators/NavBar';
+
+type Props = {
+    navigation: NativeStackNavigationProp<StackParamList>;
+}
+
+export default function Detalle({ navigation }: Props) {
     const route = useRoute();
 
     const params = route.params as Datos;
     // Acceder a los parámetros
-    const { token, title, description, timestamp, file, userId, latitud, longitud } = params;
+    const { tipo, token, title, description, timestamp, file, userId, latitud, longitud } = params;
     
     const dateObject = new Date(timestamp);
 
@@ -39,6 +47,8 @@ export default function Detalle() {
             <Text style={styles.footerText}>
                 Fecha: {formattedDate} {formattedTime} | Autor: {userId}
             </Text>
+
+            <DeleteComponent navigation={navigation} tipo={tipo} token={token} />
         </View>
     );
 };

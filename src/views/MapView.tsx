@@ -30,13 +30,14 @@ export default function MapView({ navigation }: Props) {
         const db = getDatabase();
         const dbRef = ref(db, "Denuncias/");
 
-        setLocations([]);
-    
+        let newLocations: Datos[] = [];
+
         const unsubscribe = onValue(dbRef, (snapshot) => {
             const data = snapshot.val();
-    
+
             for (let key in data) {
                 const {
+                    tipo = "Denuncia",
                     token,
                     timestamp,
                     title,
@@ -47,6 +48,7 @@ export default function MapView({ navigation }: Props) {
                     longitud,
                 } = data[key];
                 const newLocation = {
+                    tipo,
                     token,
                     title,
                     timestamp,
@@ -56,21 +58,14 @@ export default function MapView({ navigation }: Props) {
                     latitud,
                     longitud,
                 };
-                setLocations((prevState) => [...prevState, newLocation]);
-                console.log(
-                    "Datos: ",
-                    token,
-                    timestamp,
-                    title,
-                    description,
-                    file,
-                    userId,
-                    latitud,
-                    longitud
-                );
+                newLocations.push(newLocation);
             }
+
+            newLocations.forEach(newLocation => {
+                setLocations(prevLocations => [...prevLocations, newLocation]);
+            });
             setLoading(false);
-        });       
+        });
         return () => {
             unsubscribe();
         }
@@ -81,12 +76,15 @@ export default function MapView({ navigation }: Props) {
 
         const db = getDatabase();
         const dbRef = ref(db, "Eventos/");
-    
+
+        let newLocations: Datos[] = [];
+
         const unsubscribe = onValue(dbRef, (snapshot) => {
             const data = snapshot.val();
-    
+
             for (let key in data) {
                 const {
+                    tipo = "Evento",
                     token,
                     timestamp,
                     title,
@@ -97,6 +95,7 @@ export default function MapView({ navigation }: Props) {
                     longitud,
                 } = data[key];
                 const newLocation = {
+                    tipo,
                     token,
                     title,
                     timestamp,
@@ -106,21 +105,14 @@ export default function MapView({ navigation }: Props) {
                     latitud,
                     longitud,
                 };
-                setLocations((prevState) => [...prevState, newLocation]);
-                console.log(
-                    "Datos: ",
-                    token,
-                    timestamp,
-                    title,
-                    description,
-                    file,
-                    userId,
-                    latitud,
-                    longitud
-                );
+                newLocations.push(newLocation);
             }
+
+            newLocations.forEach(newLocation => {
+                setLocations(prevLocations => [...prevLocations, newLocation]);
+            });
             setLoading(false);
-        });       
+        });
         return () => {
             unsubscribe();
         }
@@ -129,16 +121,17 @@ export default function MapView({ navigation }: Props) {
     return (
         <View style={style.container}>
             {loading ? (
-                <Loading /> ) : (
-                    <View style={style.container}>
-                        <GMapComponent 
-                            location_array={_locations}
-                        />
-                    </View>
-                )
+                <Loading />) : (
+                <View style={style.container}>
+                    <GMapComponent
+                        navigation={navigation}
+                        location_array={_locations}
+                    />
+                </View>
+            )
             }
         </View>
-        
+
     )
 }
 

@@ -31,12 +31,17 @@ import { GaleryComponent } from "./GaleryComponent";
 import { UploadComponent } from "./UploadComponent";
 import { FormComponent } from "./FormComponent";
 import { set } from "firebase/database";
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { StackParamList } from '../navigators/NavBar';
 
 interface AddComponentProps {
     tipo: string;
 }
-
-export const AddComponent: React.FC<AddComponentProps> = ({ tipo }) => {
+type Props = {
+    navigation: NativeStackNavigationProp<StackParamList>;
+  };
+  
+export const AddComponent: React.FC<AddComponentProps> = ({ tipo },{navigation}:Props) => {
     const [image, setImage] = useState<string>("");
     const [imageToken, setImageToken] = useState<string | number[]>("");
 
@@ -56,7 +61,9 @@ export const AddComponent: React.FC<AddComponentProps> = ({ tipo }) => {
         setFileUpload(fileUpload);
         setFile(file);
     };
-
+    const handleCamera = ()=>{
+        navigation.navigate("Cam");
+    } 
     return (
         <SafeAreaView style={styles.container}>
             {fileUpload ? (
@@ -71,7 +78,7 @@ export const AddComponent: React.FC<AddComponentProps> = ({ tipo }) => {
                         onImageSelected={handleImage}
                     />
                     
-                    <TouchableOpacity style={styles.cameraPicker} /* onPress={selectImage} */>
+                    <TouchableOpacity style={styles.cameraPicker} onPress={handleCamera} >
                         <Ionicons name="camera" size={24} color="white" />
                     </TouchableOpacity>
                     

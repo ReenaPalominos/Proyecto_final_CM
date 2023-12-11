@@ -9,6 +9,7 @@ import Publicaciones from '../views/publicacionesView';
 import Detalle from '../views/detalleView';
 import AddView from '../views/addView';
 import Mapa from '../views/MapView';
+import Cam from '../views/camView';
 import Usuario from '../views/usuarioView';
 import AboutUs from '../views/aboutUsView';
 
@@ -37,6 +38,8 @@ export type StackParamList = {
     Publicaciones: Param;
     Detalle: Datos;
     AddView: Param;
+    /*Extra Screen*/
+    Cam: undefined;
 };
 
 function LoginUser() {
@@ -68,6 +71,7 @@ function MyTabs() {
                 <Stack.Screen name="Vistas" component={Vistas}  options={{ headerShown: false }}/>
                 <Stack.Screen name="Usuario" component={Usuario} />
                 <Stack.Screen name="Mapa" component={Mapa} />
+                <Stack.Screen name="Cam" component={Cam} />
                 <Stack.Screen name="Publicaciones" component={Publicaciones} initialParams={{ Id: "" }} />
                 <Stack.Screen name="Detalle" component={Detalle} />
                 <Stack.Screen name="AddView" component={AddView} initialParams={{ Id: "" }} />

@@ -45,7 +45,7 @@ export default function Vistas({ navigation }: Props) {
   useFocusEffect(
     useCallback(() => {
       setLoading(true);
-      console.log("entra aqui");
+
       const db = getDatabase();
       const dbRef = databaseRef(db, "Profile/" + userID?.uid);
 
@@ -63,7 +63,7 @@ export default function Vistas({ navigation }: Props) {
           email,
           username,
         };
-        setDatos(newDatos);    
+        setDatos(newDatos);
 
         setUser(datos.username);
         const storage = getStorage();
@@ -101,32 +101,32 @@ export default function Vistas({ navigation }: Props) {
       ) : error ? (
         <Error />
       ) : (
-          <View style={styles.container}>
-            <View style={styles.profileContainer}>
-                
-                <Image source={{ uri: file }} style={styles.userImage} />
+        <View style={styles.container}>
+          <View style={styles.profileContainer}>
 
-                <Text style={styles.text}>{user}</Text>
-            </View>
-            <View style={styles.subContainer}>
-              <View style={styles.buttonRow}>
-                <ButtonWithIcon onPress={() => navigation.navigate('Publicaciones', {
-                            Id: "Denuncias",
-                        })} text="Denuncias" iconName="ios-alert-circle-outline" />
-                <ButtonWithIcon onPress={() => navigation.navigate('Publicaciones', {
-                            Id: "Eventos",
-                        })} text="Eventos" iconName="ios-calendar-outline" />
-              </View>
-              <View style={styles.buttonRow}>
-                <ButtonWithIcon onPress={() => navigation.navigate('Mapa')} text="Mapa" iconName="ios-map-outline" />
-                <ButtonWithIcon onPress={() => navigation.navigate('Usuario')} text="Usuario" iconName="ios-person-outline" />
-              </View>
-            </View>
-              <Pressable style={styles.circularButton} onPress={navigateToAboutUs}>
-                <Text style={styles.text}>?</Text>
-              </Pressable>
+            <Image source={{ uri: file }} style={styles.userImage} />
+
+            <Text style={styles.text}>{user}</Text>
           </View>
-        )}    
+          <View style={styles.subContainer}>
+            <View style={styles.buttonRow}>
+              <ButtonWithIcon onPress={() => navigation.navigate('Publicaciones', {
+                Id: "Denuncias",
+              })} text="Denuncias" iconName="ios-alert-circle-outline" />
+              <ButtonWithIcon onPress={() => navigation.navigate('Publicaciones', {
+                Id: "Eventos",
+              })} text="Eventos" iconName="ios-calendar-outline" />
+            </View>
+            <View style={styles.buttonRow}>
+              <ButtonWithIcon onPress={() => navigation.navigate('Mapa')} text="Mapa" iconName="ios-map-outline" />
+              <ButtonWithIcon onPress={() => navigation.navigate('Usuario')} text="Usuario" iconName="ios-person-outline" />
+            </View>
+          </View>
+          <Pressable style={styles.circularButton} onPress={navigateToAboutUs}>
+            <Text style={styles.text}>?</Text>
+          </Pressable>
+        </View>
+      )}
     </View>
 
   );

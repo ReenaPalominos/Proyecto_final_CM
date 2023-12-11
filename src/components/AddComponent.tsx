@@ -22,9 +22,9 @@ interface AddComponentProps {
 }
 type Props = {
     navigation: NativeStackNavigationProp<StackParamList>;
-  };
-  
-export const AddComponent: React.FC<AddComponentProps & Props> = ({ tipo}) => {
+};
+
+export const AddComponent: React.FC<AddComponentProps & Props> = ({ tipo }) => {
     const navigation = useNavigation();
 
     const [image, setImage] = useState<string>("");
@@ -47,7 +47,7 @@ export const AddComponent: React.FC<AddComponentProps & Props> = ({ tipo}) => {
         setFile(file);
     };
     const handleCamera = () => {
-        navigation.navigate('Cam');
+        navigation.navigate("Cam");
     } 
     return (
         <SafeAreaView style={styles.container}>

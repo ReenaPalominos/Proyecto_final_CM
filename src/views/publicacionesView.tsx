@@ -44,8 +44,8 @@ export default function Publicaciones({ route, navigation }: PublicacionesProps)
     
                 // Accediendo a los datos
                 for (let key in data) {
-                    const { token, timestamp, title, description, file, userId, latitud, longitud} = data[key];
-                    const newPost = { token, title, timestamp, description, file, userId, latitud, longitud};
+                    const { tipo, token, timestamp, title, description, file, userId, latitud, longitud} = data[key];
+                    const newPost = { tipo, token, title, timestamp, description, file, userId, latitud, longitud};
                     newPosts.push(newPost);
                     console.log(`Datos ${Id}: `, token, timestamp, title, description, file, userId);
                 }
@@ -65,6 +65,7 @@ export default function Publicaciones({ route, navigation }: PublicacionesProps)
                     <ItemComponent
                         key={posteos.token.toString()}
                         onPress={() => navigation.navigate('Detalle', {
+                                tipo: Id,
                                 token: posteos.token,
                                 title: posteos.title,
                                 description: posteos.description,

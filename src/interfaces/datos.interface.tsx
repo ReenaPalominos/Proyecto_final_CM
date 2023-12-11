@@ -1,4 +1,5 @@
 export interface Datos {
+    tipo: string;
     token: string | number[];
     timestamp: number;
     title: string;

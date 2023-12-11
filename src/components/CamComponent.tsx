@@ -2,30 +2,30 @@ import { Camera, CameraType, FlashMode } from "expo-camera"
 import * as MediaLibrary from 'expo-media-library';
 import React from "react";
 import { useEffect, useRef, useState } from "react"
-import { View,StyleSheet, Button, TouchableOpacity, Text, Image} from "react-native";
+import { View, StyleSheet, Button, TouchableOpacity, Text, Image } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import {AntDesign} from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 
-type ZoomTypes = 'add'| 'sub';
+type ZoomTypes = 'add' | 'sub';
 
-export const CamComponent= ()=>{
+export const CamComponent = () => {
 
     const faceOptions = {
         detectLandmarks: 'none',
         mode: 'accurate',
         tracking: true,
     };
-    
-    const cameraRef= useRef<any>(null)
+
+    const cameraRef = useRef<any>(null)
 
     const [Type, setType] = useState(CameraType.back);
-    const [Photo, setPhoto]=useState<any>(undefined);
-    const [HasCameraPermission, setHasCameraPermission]= useState(false);
-    const [HasMediaLibraryPermission,setHasMediaLibraryPermission]= useState(false);
-    const [Zoom, setZoom]= useState(0);
-    const [Flash, setFlash]=useState(FlashMode.off);
-    
-    const takePicture = async ()=>{
+    const [Photo, setPhoto] = useState<any>(undefined);
+    const [HasCameraPermission, setHasCameraPermission] = useState(false);
+    const [HasMediaLibraryPermission, setHasMediaLibraryPermission] = useState(false);
+    const [Zoom, setZoom] = useState(0);
+    const [Flash, setFlash] = useState(FlashMode.off);
+
+    const takePicture = async () => {
         const options = {
             quality: 1,
             base64: true,
@@ -35,54 +35,54 @@ export const CamComponent= ()=>{
         setPhoto(NewPhoto);
     }
 
-    const ToggleCameraType=()=>{
-        setType(current=>(current===CameraType.back ? CameraType.front : CameraType.back));
+    const ToggleCameraType = () => {
+        setType(current => (current === CameraType.back ? CameraType.front : CameraType.back));
     }
 
-    const ToggleFlash=()=>{
-        setFlash(current=>(current===FlashMode.off ? FlashMode.torch : FlashMode.off))
+    const ToggleFlash = () => {
+        setFlash(current => (current === FlashMode.off ? FlashMode.torch : FlashMode.off))
     }
-    
-    const getPermissions = async()=>{
+
+    const getPermissions = async () => {
         const CameraPermission = await Camera.requestCameraPermissionsAsync();
         const MediaLibraryPermission = await MediaLibrary.requestPermissionsAsync();
-        setHasCameraPermission(CameraPermission.status=== 'granted');
-        setHasMediaLibraryPermission(MediaLibraryPermission.status==='granted');
+        setHasCameraPermission(CameraPermission.status === 'granted');
+        setHasMediaLibraryPermission(MediaLibraryPermission.status === 'granted');
     }
 
-    const DiscardPhoto=() =>{
+    const DiscardPhoto = () => {
         setPhoto(undefined);
     }
 
-    const UpLoadPhoto=() =>{
-        MediaLibrary.saveToLibraryAsync(Photo.uri).then(()=>{     
-        setPhoto(undefined);
+    const UpLoadPhoto = () => {
+        MediaLibrary.saveToLibraryAsync(Photo.uri).then(() => {
+            setPhoto(undefined);
         })
     }
 
-    const handlerZoom = (type:ZoomTypes) =>{
-        if(type ==='add'){
-            if(Zoom <= 0.998){
+    const handlerZoom = (type: ZoomTypes) => {
+        if (type === 'add') {
+            if (Zoom <= 0.998) {
                 setZoom(Zoom + 0.01)
             }
         }
-        if(type ==='sub'){
-            if(Zoom >= 0.002){
+        if (type === 'sub') {
+            if (Zoom >= 0.002) {
                 setZoom(Zoom - 0.01)
             }
         }
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         getPermissions();
-    },[])
+    }, [])
 
-    if (HasCameraPermission === undefined || HasMediaLibraryPermission=== undefined){
+    if (HasCameraPermission === undefined || HasMediaLibraryPermission === undefined) {
         return <View></View>;
     }
 
-    if (!HasCameraPermission ||!HasMediaLibraryPermission){
-        return(
+    if (!HasCameraPermission || !HasMediaLibraryPermission) {
+        return (
             <View style={styles.container}>
                 <Text style={styles.text}>Es necesario que nos otorgue el permiso de usar su cámara y guardar fotografías en su galería</Text>
                 <Button onPress={getPermissions} title="Dar permiso de uso de cámara y galería" />
@@ -111,7 +111,7 @@ export const CamComponent= ()=>{
         <View style={styles.container}>
             <Camera style={styles.camera} type={Type} flashMode={Flash} ref={cameraRef} zoom={Zoom} faceDetectorSettings={faceOptions}  >
                 <View style={styles.buttonContainer}>
-                    
+
                     <TouchableOpacity style={styles.button} onPress={takePicture}>
                         <Ionicons name="camera" size={24} color="white" />
                     </TouchableOpacity>
@@ -168,8 +168,8 @@ const styles = StyleSheet.create({
     preview: {
         alignSelf: 'stretch',
         height: '90%'
-    }, 
-    textHelper:{
+    },
+    textHelper: {
         color: '#fff',
         backgroundColor: '#000'
     }

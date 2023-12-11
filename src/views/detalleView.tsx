@@ -11,9 +11,7 @@ export default function Detalle() {
     const params = route.params as Datos;
     // Acceder a los parámetros
     const { token, title, description, timestamp, file, userId, latitud, longitud } = params;
-
-    console.log(timestamp);
-
+    
     const dateObject = new Date(timestamp);
 
     const formattedDate = dateObject.toLocaleDateString("es-ES");

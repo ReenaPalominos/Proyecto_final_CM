@@ -63,8 +63,8 @@ export const DeleteComponent = ({ navigation, tipo, token }: DeleteComponentProp
 const styles = StyleSheet.create({
     imagePicker: {
         position: "absolute",
-        bottom: 90,
-        right: 30,
+        bottom: 70,
+        left: 15,
         width: 45,
         height: 45,
         backgroundColor: "black",
